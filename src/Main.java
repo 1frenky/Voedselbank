@@ -49,7 +49,7 @@ public class Main extends javax.swing.JFrame {
         jPanelMain.setLayout(jPanelMainLayout);
         jPanelMainLayout.setHorizontalGroup(
             jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMainLayout.createSequentialGroup()
+            .addGroup(jPanelMainLayout.createSequentialGroup()
                 .addContainerGap(605, Short.MAX_VALUE)
                 .addComponent(MainExitKnop, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
