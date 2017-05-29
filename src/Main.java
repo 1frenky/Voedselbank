@@ -28,6 +28,7 @@ public class Main extends javax.swing.JFrame {
         jPanelMain = new javax.swing.JPanel();
         MainExitKnop = new java.awt.Button();
         MainLabelWelkom = new java.awt.Label();
+        test2test = new java.awt.Label();
         jPanelIntake = new javax.swing.JPanel();
         IntakeExitKnop = new java.awt.Button();
         jFileChooser1 = new javax.swing.JFileChooser();
@@ -58,6 +59,8 @@ public class Main extends javax.swing.JFrame {
         MainLabelWelkom.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         MainLabelWelkom.setText("Welkom bij de Voedselbank applicatie.");
 
+        test2test.setText("testtestest");
+
         javax.swing.GroupLayout jPanelMainLayout = new javax.swing.GroupLayout(jPanelMain);
         jPanelMain.setLayout(jPanelMainLayout);
         jPanelMainLayout.setHorizontalGroup(
@@ -72,13 +75,19 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(MainLabelWelkom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(jPanelMainLayout.createSequentialGroup()
+                .addGap(305, 305, 305)
+                .addComponent(test2test, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelMainLayout.setVerticalGroup(
             jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMainLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(MainLabelWelkom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 595, Short.MAX_VALUE)
+                .addGap(138, 138, 138)
+                .addComponent(test2test, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 437, Short.MAX_VALUE)
                 .addComponent(MainExitKnop, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -301,5 +310,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelProd;
     private javax.swing.JPanel jPanelUitgift;
     private javax.swing.JTabbedPane jTabbedPaneGeheel;
+    private java.awt.Label test2test;
     // End of variables declaration//GEN-END:variables
 }
