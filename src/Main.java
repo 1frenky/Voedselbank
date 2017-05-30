@@ -1,4 +1,5 @@
 
+import java.awt.Color;
 import java.io.*;
 import javax.swing.*;
 
@@ -16,7 +17,7 @@ public class Main extends javax.swing.JFrame {
 
     /**
      * Creates new form Main
-     */
+     */ 
     public Main() {
         initComponents();
     }
@@ -34,8 +35,9 @@ public class Main extends javax.swing.JFrame {
         MainLabelWelkom = new java.awt.Label();
         jPanelIntake = new javax.swing.JPanel();
         IntakeExitKnop = new java.awt.Button();
-        button1 = new java.awt.Button();
-        textFieldIntakeFile = new java.awt.TextField();
+        jButton1 = new javax.swing.JButton();
+        btnZoekExcel = new javax.swing.JButton();
+        lblPath = new javax.swing.JLabel();
         jPanelProd = new javax.swing.JPanel();
         ProdExitKnop = new java.awt.Button();
         jPanelUitgift = new javax.swing.JPanel();
@@ -83,7 +85,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMainLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(MainLabelWelkom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 595, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 792, Short.MAX_VALUE)
                 .addComponent(MainExitKnop, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -97,14 +99,17 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        button1.setLabel("button1");
-        button1.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setText("Importeer Excelsheet");
+
+        btnZoekExcel.setText("Zoek Excelsheet");
+        btnZoekExcel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button1ActionPerformed(evt);
+                btnZoekExcelActionPerformed(evt);
             }
         });
 
-        textFieldIntakeFile.setText("textField1");
+        lblPath.setText("Kies een nieuw bestand");
+        lblPath.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
         javax.swing.GroupLayout jPanelIntakeLayout = new javax.swing.GroupLayout(jPanelIntake);
         jPanelIntake.setLayout(jPanelIntakeLayout);
@@ -117,22 +122,23 @@ public class Main extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(IntakeExitKnop, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelIntakeLayout.createSequentialGroup()
-                        .addComponent(textFieldIntakeFile, javax.swing.GroupLayout.PREFERRED_SIZE, 527, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
-                        .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lblPath, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanelIntakeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnZoekExcel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanelIntakeLayout.setVerticalGroup(
             jPanelIntakeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelIntakeLayout.createSequentialGroup()
-                .addGroup(jPanelIntakeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelIntakeLayout.createSequentialGroup()
-                        .addGap(207, 207, 207)
-                        .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelIntakeLayout.createSequentialGroup()
-                        .addGap(218, 218, 218)
-                        .addComponent(textFieldIntakeFile, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 368, Short.MAX_VALUE)
+                .addGap(140, 140, 140)
+                .addGroup(jPanelIntakeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblPath, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnZoekExcel, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 567, Short.MAX_VALUE)
                 .addComponent(IntakeExitKnop, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -158,7 +164,7 @@ public class Main extends javax.swing.JFrame {
         jPanelProdLayout.setVerticalGroup(
             jPanelProdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelProdLayout.createSequentialGroup()
-                .addContainerGap(625, Short.MAX_VALUE)
+                .addContainerGap(822, Short.MAX_VALUE)
                 .addComponent(ProdExitKnop, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -179,7 +185,7 @@ public class Main extends javax.swing.JFrame {
         jPanelUitgiftLayout.setVerticalGroup(
             jPanelUitgiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelUitgiftLayout.createSequentialGroup()
-                .addContainerGap(625, Short.MAX_VALUE)
+                .addContainerGap(822, Short.MAX_VALUE)
                 .addComponent(UitgifteExitKnop, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -205,7 +211,7 @@ public class Main extends javax.swing.JFrame {
         jPanelClientLayout.setVerticalGroup(
             jPanelClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelClientLayout.createSequentialGroup()
-                .addContainerGap(625, Short.MAX_VALUE)
+                .addContainerGap(822, Short.MAX_VALUE)
                 .addComponent(ClientExitKnop, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -231,7 +237,7 @@ public class Main extends javax.swing.JFrame {
         jPanelManageLayout.setVerticalGroup(
             jPanelManageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelManageLayout.createSequentialGroup()
-                .addContainerGap(625, Short.MAX_VALUE)
+                .addContainerGap(822, Short.MAX_VALUE)
                 .addComponent(ManageExitKnop, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -260,10 +266,6 @@ public class Main extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_ProdExitKnopActionPerformed
 
-    private void IntakeExitKnopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IntakeExitKnopActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_IntakeExitKnopActionPerformed
-
     private void ClientExitKnopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClientExitKnopActionPerformed
         System.exit(0);
     }//GEN-LAST:event_ClientExitKnopActionPerformed
@@ -272,13 +274,17 @@ public class Main extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_ManageExitKnopActionPerformed
 
-    private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
+    private void btnZoekExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnZoekExcelActionPerformed
         JFileChooser chooser = new JFileChooser();
         chooser.showOpenDialog(null);
         File f = chooser.getSelectedFile();
         String filenaam = f.getAbsolutePath();
-        textFieldIntakeFile.setText(filenaam);
-    }//GEN-LAST:event_button1ActionPerformed
+        lblPath.setText(filenaam);
+    }//GEN-LAST:event_btnZoekExcelActionPerformed
+
+    private void IntakeExitKnopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IntakeExitKnopActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_IntakeExitKnopActionPerformed
 
     /**
      * @param args the command line arguments
@@ -323,7 +329,8 @@ public class Main extends javax.swing.JFrame {
     private java.awt.Button ManageExitKnop;
     private java.awt.Button ProdExitKnop;
     private java.awt.Button UitgifteExitKnop;
-    private java.awt.Button button1;
+    private javax.swing.JButton btnZoekExcel;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanelClient;
     private javax.swing.JPanel jPanelIntake;
     private javax.swing.JPanel jPanelMain;
@@ -331,6 +338,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelProd;
     private javax.swing.JPanel jPanelUitgift;
     private javax.swing.JTabbedPane jTabbedPaneGeheel;
-    private java.awt.TextField textFieldIntakeFile;
+    private javax.swing.JLabel lblPath;
     // End of variables declaration//GEN-END:variables
 }
