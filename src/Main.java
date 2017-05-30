@@ -18,6 +18,10 @@ public class Main extends javax.swing.JFrame {
     /**
      * Creates new form Main
      */ 
+    
+    private String filenaam = null;
+    private String filePath = null;
+    
     public Main() {
         initComponents();
     }
@@ -35,9 +39,10 @@ public class Main extends javax.swing.JFrame {
         MainLabelWelkom = new java.awt.Label();
         jPanelIntake = new javax.swing.JPanel();
         IntakeExitKnop = new java.awt.Button();
-        jButton1 = new javax.swing.JButton();
+        btnImportExcel = new javax.swing.JButton();
         btnZoekExcel = new javax.swing.JButton();
         lblPath = new javax.swing.JLabel();
+        lblMessage = new javax.swing.JLabel();
         jPanelProd = new javax.swing.JPanel();
         ProdExitKnop = new java.awt.Button();
         jPanelUitgift = new javax.swing.JPanel();
@@ -99,7 +104,12 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Importeer Excelsheet");
+        btnImportExcel.setText("Importeer Excelsheet");
+        btnImportExcel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImportExcelActionPerformed(evt);
+            }
+        });
 
         btnZoekExcel.setText("Zoek Excelsheet");
         btnZoekExcel.addActionListener(new java.awt.event.ActionListener() {
@@ -116,16 +126,19 @@ public class Main extends javax.swing.JFrame {
         jPanelIntakeLayout.setHorizontalGroup(
             jPanelIntakeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelIntakeLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanelIntakeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelIntakeLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanelIntakeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanelIntakeLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(IntakeExitKnop, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelIntakeLayout.createSequentialGroup()
-                        .addComponent(lblPath, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)
+                    .addGroup(jPanelIntakeLayout.createSequentialGroup()
+                        .addGroup(jPanelIntakeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanelIntakeLayout.createSequentialGroup()
+                                .addGap(0, 172, Short.MAX_VALUE)
+                                .addComponent(lblMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblPath, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanelIntakeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnImportExcel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnZoekExcel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
@@ -137,8 +150,10 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(lblPath, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnZoekExcel, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 567, Short.MAX_VALUE)
+                .addComponent(btnImportExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
+                .addComponent(lblMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 486, Short.MAX_VALUE)
                 .addComponent(IntakeExitKnop, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -278,13 +293,22 @@ public class Main extends javax.swing.JFrame {
         JFileChooser chooser = new JFileChooser();
         chooser.showOpenDialog(null);
         File f = chooser.getSelectedFile();
-        String filenaam = f.getAbsolutePath();
+        String filenaam = f.getName();
+        String filePath = f.getAbsolutePath();
+        this.filenaam = filenaam;
+        this.filePath = filePath;
         lblPath.setText(filenaam);
     }//GEN-LAST:event_btnZoekExcelActionPerformed
 
     private void IntakeExitKnopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IntakeExitKnopActionPerformed
         System.exit(0);
     }//GEN-LAST:event_IntakeExitKnopActionPerformed
+
+    private void btnImportExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportExcelActionPerformed
+        ImporteerExcelsheet importExcel = new ImporteerExcelsheet();
+        importExcel.importeerExcelsheet(this.filenaam,this.filePath);
+        lblMessage.setText("ExcelSheet is geimporteerd.");
+    }//GEN-LAST:event_btnImportExcelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -329,8 +353,8 @@ public class Main extends javax.swing.JFrame {
     private java.awt.Button ManageExitKnop;
     private java.awt.Button ProdExitKnop;
     private java.awt.Button UitgifteExitKnop;
+    private javax.swing.JButton btnImportExcel;
     private javax.swing.JButton btnZoekExcel;
-    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanelClient;
     private javax.swing.JPanel jPanelIntake;
     private javax.swing.JPanel jPanelMain;
@@ -338,6 +362,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelProd;
     private javax.swing.JPanel jPanelUitgift;
     private javax.swing.JTabbedPane jTabbedPaneGeheel;
+    private javax.swing.JLabel lblMessage;
     private javax.swing.JLabel lblPath;
     // End of variables declaration//GEN-END:variables
 }
