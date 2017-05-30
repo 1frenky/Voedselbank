@@ -1,3 +1,7 @@
+
+import java.io.*;
+import javax.swing.*;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -28,10 +32,10 @@ public class Main extends javax.swing.JFrame {
         jPanelMain = new javax.swing.JPanel();
         MainExitKnop = new java.awt.Button();
         MainLabelWelkom = new java.awt.Label();
-        test2test = new java.awt.Label();
         jPanelIntake = new javax.swing.JPanel();
         IntakeExitKnop = new java.awt.Button();
-        jFileChooser1 = new javax.swing.JFileChooser();
+        button1 = new java.awt.Button();
+        textFieldIntakeFile = new java.awt.TextField();
         jPanelProd = new javax.swing.JPanel();
         ProdExitKnop = new java.awt.Button();
         jPanelUitgift = new javax.swing.JPanel();
@@ -59,8 +63,6 @@ public class Main extends javax.swing.JFrame {
         MainLabelWelkom.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         MainLabelWelkom.setText("Welkom bij de Voedselbank applicatie.");
 
-        test2test.setText("testtestest");
-
         javax.swing.GroupLayout jPanelMainLayout = new javax.swing.GroupLayout(jPanelMain);
         jPanelMain.setLayout(jPanelMainLayout);
         jPanelMainLayout.setHorizontalGroup(
@@ -75,19 +77,13 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(MainLabelWelkom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(jPanelMainLayout.createSequentialGroup()
-                .addGap(305, 305, 305)
-                .addComponent(test2test, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelMainLayout.setVerticalGroup(
             jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMainLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(MainLabelWelkom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(138, 138, 138)
-                .addComponent(test2test, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 437, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 595, Short.MAX_VALUE)
                 .addComponent(MainExitKnop, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -101,25 +97,42 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        button1.setLabel("button1");
+        button1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button1ActionPerformed(evt);
+            }
+        });
+
+        textFieldIntakeFile.setText("textField1");
+
         javax.swing.GroupLayout jPanelIntakeLayout = new javax.swing.GroupLayout(jPanelIntake);
         jPanelIntake.setLayout(jPanelIntakeLayout);
         jPanelIntakeLayout.setHorizontalGroup(
             jPanelIntakeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelIntakeLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(IntakeExitKnop, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(jPanelIntakeLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jFileChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 685, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addGroup(jPanelIntakeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelIntakeLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(IntakeExitKnop, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelIntakeLayout.createSequentialGroup()
+                        .addComponent(textFieldIntakeFile, javax.swing.GroupLayout.PREFERRED_SIZE, 527, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                        .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanelIntakeLayout.setVerticalGroup(
             jPanelIntakeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelIntakeLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jFileChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 172, Short.MAX_VALUE)
+                .addGroup(jPanelIntakeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelIntakeLayout.createSequentialGroup()
+                        .addGap(207, 207, 207)
+                        .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelIntakeLayout.createSequentialGroup()
+                        .addGap(218, 218, 218)
+                        .addComponent(textFieldIntakeFile, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 368, Short.MAX_VALUE)
                 .addComponent(IntakeExitKnop, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -259,6 +272,14 @@ public class Main extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_ManageExitKnopActionPerformed
 
+    private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
+        JFileChooser chooser = new JFileChooser();
+        chooser.showOpenDialog(null);
+        File f = chooser.getSelectedFile();
+        String filenaam = f.getAbsolutePath();
+        textFieldIntakeFile.setText(filenaam);
+    }//GEN-LAST:event_button1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -302,7 +323,7 @@ public class Main extends javax.swing.JFrame {
     private java.awt.Button ManageExitKnop;
     private java.awt.Button ProdExitKnop;
     private java.awt.Button UitgifteExitKnop;
-    private javax.swing.JFileChooser jFileChooser1;
+    private java.awt.Button button1;
     private javax.swing.JPanel jPanelClient;
     private javax.swing.JPanel jPanelIntake;
     private javax.swing.JPanel jPanelMain;
@@ -310,6 +331,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelProd;
     private javax.swing.JPanel jPanelUitgift;
     private javax.swing.JTabbedPane jTabbedPaneGeheel;
-    private java.awt.Label test2test;
+    private java.awt.TextField textFieldIntakeFile;
     // End of variables declaration//GEN-END:variables
 }
