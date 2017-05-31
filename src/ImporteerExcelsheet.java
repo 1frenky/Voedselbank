@@ -33,25 +33,28 @@ public class ImporteerExcelsheet {
         {   
             FileInputStream file = new FileInputStream(new File(filePath));
  
-            if ( filePath.toLowerCase().indexOf(xlsx.toLowerCase()) != -1 ) {
-                XSSFWorkbook workbook = new XSSFWorkbook(filePath);
-                
-                XSSFSheet sheet = workbook.getSheetAt(0);
-                
-            } else {
-                HSSFWorkbook workbook = new HSSFWorkbook(file);
-                
-                
-                HSSFSheet sheet = workbook.getSheetAt(0);
-            }
+//            if ( filePath.toLowerCase().indexOf(xlsx.toLowerCase()) != -1 ) {
+//                XSSFWorkbook workbook = new XSSFWorkbook(filePath);
+//                
+//                XSSFSheet sheet = workbook.getSheetAt(0);
+//                
+//            } else {
+//                HSSFWorkbook workbook = new HSSFWorkbook(file);
+//                
+//                
+//                HSSFSheet sheet = workbook.getSheetAt(0);
+//            }
             
             //Create Workbook instance holding reference to .xlsx file
-//            XSSFWorkbook workbook = new XSSFWorkbook(filePath);
-//            HSSFWorkbook workbook = new HSSFWorkbook(file);
+           XSSFWorkbook workbook = new XSSFWorkbook(filePath);
+//=              voor .xls bestanden
+            //HSSFWorkbook workbook = new HSSFWorkbook(file);
             
             //Get first/desired sheet from the workbook
-//            XSSFSheet sheet = workbook.getSheetAt(0);
-//            HSSFSheet sheet = workbook.getSheetAt(0);
+            //voor .xlsx bestanden
+              XSSFSheet sheet = workbook.getSheetAt(0);
+//          voor .xls bestanden
+           // HSSFSheet sheet = workbook.getSheetAt(0);
             
             //Iterate through each rows one by one
             Iterator<Row> rowIterator = sheet.iterator();
@@ -68,10 +71,10 @@ public class ImporteerExcelsheet {
                     switch (cell.getCellType()) 
                     {
                         case Cell.CELL_TYPE_NUMERIC:
-                            System.out.print(cell.getNumericCellValue() + "t");
+                            System.out.print(cell.getNumericCellValue() + "\t ");
                             break;
                         case Cell.CELL_TYPE_STRING:
-                            System.out.print(cell.getStringCellValue() + "t");
+                            System.out.print(cell.getStringCellValue() + "\t ");
                             break;
                     }
                 }

@@ -76,7 +76,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jpMainLayout.createSequentialGroup()
                 .addGap(233, 233, 233)
                 .addComponent(MainLabelWelkom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(262, Short.MAX_VALUE))
+                .addContainerGap(240, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpMainLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnExitMain)
@@ -87,7 +87,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpMainLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(MainLabelWelkom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 799, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 602, Short.MAX_VALUE)
                 .addComponent(btnExitMain)
                 .addContainerGap())
         );
@@ -127,7 +127,7 @@ public class Main extends javax.swing.JFrame {
                     .addGroup(jpIntakeLayout.createSequentialGroup()
                         .addGroup(jpIntakeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jpIntakeLayout.createSequentialGroup()
-                                .addGap(0, 176, Short.MAX_VALUE)
+                                .addGap(0, 148, Short.MAX_VALUE)
                                 .addComponent(lblMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(lblPath, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -150,7 +150,7 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(btnImportExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
                 .addComponent(lblMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 493, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 295, Short.MAX_VALUE)
                 .addComponent(btnExitIntake)
                 .addContainerGap())
         );
@@ -169,14 +169,14 @@ public class Main extends javax.swing.JFrame {
         jpProductieLayout.setHorizontalGroup(
             jpProductieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpProductieLayout.createSequentialGroup()
-                .addContainerGap(634, Short.MAX_VALUE)
+                .addContainerGap(604, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addContainerGap())
         );
         jpProductieLayout.setVerticalGroup(
             jpProductieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpProductieLayout.createSequentialGroup()
-                .addContainerGap(829, Short.MAX_VALUE)
+                .addContainerGap(632, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addContainerGap())
         );
@@ -202,7 +202,7 @@ public class Main extends javax.swing.JFrame {
         jpUitgiftLayout.setVerticalGroup(
             jpUitgiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpUitgiftLayout.createSequentialGroup()
-                .addContainerGap(829, Short.MAX_VALUE)
+                .addContainerGap(632, Short.MAX_VALUE)
                 .addComponent(btnExitUitgitfte)
                 .addContainerGap())
         );
@@ -221,14 +221,14 @@ public class Main extends javax.swing.JFrame {
         jpClientLayout.setHorizontalGroup(
             jpClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpClientLayout.createSequentialGroup()
-                .addContainerGap(660, Short.MAX_VALUE)
+                .addContainerGap(630, Short.MAX_VALUE)
                 .addComponent(btnExitClient)
                 .addContainerGap())
         );
         jpClientLayout.setVerticalGroup(
             jpClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpClientLayout.createSequentialGroup()
-                .addContainerGap(829, Short.MAX_VALUE)
+                .addContainerGap(632, Short.MAX_VALUE)
                 .addComponent(btnExitClient)
                 .addContainerGap())
         );
@@ -247,14 +247,14 @@ public class Main extends javax.swing.JFrame {
         jpManageLayout.setHorizontalGroup(
             jpManageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpManageLayout.createSequentialGroup()
-                .addContainerGap(660, Short.MAX_VALUE)
+                .addContainerGap(630, Short.MAX_VALUE)
                 .addComponent(btnExitManage)
                 .addContainerGap())
         );
         jpManageLayout.setVerticalGroup(
             jpManageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpManageLayout.createSequentialGroup()
-                .addContainerGap(829, Short.MAX_VALUE)
+                .addContainerGap(632, Short.MAX_VALUE)
                 .addComponent(btnExitManage)
                 .addContainerGap())
         );
@@ -265,11 +265,11 @@ public class Main extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jtpGeheel)
+            .addComponent(jtpGeheel, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jtpGeheel)
+            .addComponent(jtpGeheel, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
         );
 
         pack();
