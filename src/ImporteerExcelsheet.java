@@ -47,18 +47,6 @@ public class ImporteerExcelsheet {
                 rowIterator = sheet1.iterator();
             }
             
-            //Create Workbook instance holding reference to .xlsx file
-//            voor .xlsx bestanden
-//            XSSFWorkbook workbook = new XSSFWorkbook(filePath);
-//            voor .xls bestanden
-//            HSSFWorkbook workbook = new HSSFWorkbook(file);
-            
-            //Get first/desired sheet from the workbook
-//            voor .xlsx bestanden
-//            XSSFSheet sheet = workbook.getSheetAt(0);
-//            voor .xls bestanden
-//            HSSFSheet sheet = workbook.getSheetAt(0);
-            
             //Iterate through each rows one by one
             while (rowIterator.hasNext()) 
             {
