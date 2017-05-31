@@ -42,6 +42,10 @@ public class Main extends javax.swing.JFrame {
         lblPath = new javax.swing.JLabel();
         lblMessage = new javax.swing.JLabel();
         btnExitIntake = new javax.swing.JButton();
+        btnVerwijder = new javax.swing.JButton();
+        btnToevoegen = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jpProductie = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jpUitgift = new javax.swing.JPanel();
@@ -54,9 +58,7 @@ public class Main extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Database app Voedselbank");
         setLocationByPlatform(true);
-        setMaximumSize(new java.awt.Dimension(700, 700));
         setMinimumSize(new java.awt.Dimension(700, 700));
-        setPreferredSize(new java.awt.Dimension(700, 700));
         setResizable(false);
 
         MainLabelWelkom.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
@@ -76,7 +78,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jpMainLayout.createSequentialGroup()
                 .addGap(233, 233, 233)
                 .addComponent(MainLabelWelkom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(243, Short.MAX_VALUE))
+                .addContainerGap(251, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpMainLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnExitMain)
@@ -87,7 +89,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpMainLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(MainLabelWelkom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 606, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 648, Short.MAX_VALUE)
                 .addComponent(btnExitMain)
                 .addContainerGap())
         );
@@ -112,46 +114,81 @@ public class Main extends javax.swing.JFrame {
         lblPath.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
         btnExitIntake.setText("Exit");
+        btnExitIntake.setMaximumSize(new java.awt.Dimension(90, 35));
+        btnExitIntake.setPreferredSize(new java.awt.Dimension(90, 35));
         btnExitIntake.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExitIntakeActionPerformed(evt);
             }
         });
 
+        btnVerwijder.setText("verwijder");
+        btnVerwijder.setPreferredSize(new java.awt.Dimension(90, 35));
+
+        btnToevoegen.setText("voeg toe");
+        btnToevoegen.setPreferredSize(new java.awt.Dimension(90, 35));
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(1).setResizable(false);
+            jTable1.getColumnModel().getColumn(2).setResizable(false);
+            jTable1.getColumnModel().getColumn(3).setResizable(false);
+        }
+
         javax.swing.GroupLayout jpIntakeLayout = new javax.swing.GroupLayout(jpIntake);
         jpIntake.setLayout(jpIntakeLayout);
         jpIntakeLayout.setHorizontalGroup(
             jpIntakeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpIntakeLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpIntakeLayout.createSequentialGroup()
                 .addGroup(jpIntakeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpIntakeLayout.createSequentialGroup()
-                        .addGroup(jpIntakeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jpIntakeLayout.createSequentialGroup()
-                                .addGap(0, 157, Short.MAX_VALUE)
-                                .addComponent(lblMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lblPath, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jpIntakeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnImportExcel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnZoekExcel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(lblPath, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 534, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpIntakeLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnExitIntake)))
+                        .addGap(7, 7, 7)
+                        .addGroup(jpIntakeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpIntakeLayout.createSequentialGroup()
+                                .addGap(0, 304, Short.MAX_VALUE)
+                                .addComponent(btnToevoegen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(43, 43, 43)
+                                .addComponent(btnVerwijder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpIntakeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpIntakeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(btnImportExcel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnZoekExcel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnExitIntake, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
+            .addGroup(jpIntakeLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpIntakeLayout.setVerticalGroup(
             jpIntakeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpIntakeLayout.createSequentialGroup()
-                .addGap(140, 140, 140)
+                .addGap(44, 44, 44)
+                .addComponent(lblMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jpIntakeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lblPath, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnZoekExcel, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnImportExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3)
-                .addComponent(lblMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 300, Short.MAX_VALUE)
-                .addComponent(btnExitIntake)
+                .addGap(18, 18, 18)
+                .addGroup(jpIntakeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnImportExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addGroup(jpIntakeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnExitIntake, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnVerwijder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnToevoegen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -169,14 +206,14 @@ public class Main extends javax.swing.JFrame {
         jpProductieLayout.setHorizontalGroup(
             jpProductieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpProductieLayout.createSequentialGroup()
-                .addContainerGap(597, Short.MAX_VALUE)
+                .addContainerGap(603, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(50, 50, 50))
         );
         jpProductieLayout.setVerticalGroup(
             jpProductieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpProductieLayout.createSequentialGroup()
-                .addContainerGap(636, Short.MAX_VALUE)
+                .addContainerGap(678, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addContainerGap())
         );
@@ -202,7 +239,7 @@ public class Main extends javax.swing.JFrame {
         jpUitgiftLayout.setVerticalGroup(
             jpUitgiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpUitgiftLayout.createSequentialGroup()
-                .addContainerGap(636, Short.MAX_VALUE)
+                .addContainerGap(678, Short.MAX_VALUE)
                 .addComponent(btnExitUitgitfte)
                 .addContainerGap())
         );
@@ -228,7 +265,7 @@ public class Main extends javax.swing.JFrame {
         jpClientLayout.setVerticalGroup(
             jpClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpClientLayout.createSequentialGroup()
-                .addContainerGap(636, Short.MAX_VALUE)
+                .addContainerGap(678, Short.MAX_VALUE)
                 .addComponent(btnExitClient)
                 .addContainerGap())
         );
@@ -254,7 +291,7 @@ public class Main extends javax.swing.JFrame {
         jpManageLayout.setVerticalGroup(
             jpManageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpManageLayout.createSequentialGroup()
-                .addContainerGap(636, Short.MAX_VALUE)
+                .addContainerGap(678, Short.MAX_VALUE)
                 .addComponent(btnExitManage)
                 .addContainerGap())
         );
@@ -359,8 +396,12 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton btnExitManage;
     private javax.swing.JButton btnExitUitgitfte;
     private javax.swing.JButton btnImportExcel;
+    private javax.swing.JButton btnToevoegen;
+    private javax.swing.JButton btnVerwijder;
     private javax.swing.JButton btnZoekExcel;
     private javax.swing.JButton jButton1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JPanel jpClient;
     private javax.swing.JPanel jpIntake;
     private javax.swing.JPanel jpMain;
