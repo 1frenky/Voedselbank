@@ -169,9 +169,9 @@ public class Main extends javax.swing.JFrame {
         jpProductieLayout.setHorizontalGroup(
             jpProductieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpProductieLayout.createSequentialGroup()
-                .addContainerGap(641, Short.MAX_VALUE)
+                .addContainerGap(597, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addContainerGap())
+                .addGap(50, 50, 50))
         );
         jpProductieLayout.setVerticalGroup(
             jpProductieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

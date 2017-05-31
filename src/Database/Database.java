@@ -45,6 +45,7 @@ public class Database {
             System.out.println(e);
         }
 
+        
         dbserver = "meru.hhs.nl";
         database = "16102150";
         username = "16102150";

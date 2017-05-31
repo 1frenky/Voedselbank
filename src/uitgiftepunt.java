@@ -21,6 +21,7 @@ public class uitgiftepunt {
         this.plaats = plaats;
         this.aantalMensen = aantalMensen;
         this.maxCapaciteit = maxCapaciteit;
+        
     }
 
     public String getUitgifteNaam() {

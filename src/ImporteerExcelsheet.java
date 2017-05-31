@@ -39,6 +39,7 @@ public class ImporteerExcelsheet {
                 XSSFWorkbook wbXlsx = new XSSFWorkbook(filePath);
                 sheet = wbXlsx.getSheetAt(0);
                 //Iterate through each rows one by one
+                
                 rowIterator = sheet.iterator();
             } else {
                 HSSFWorkbook wbXls = new HSSFWorkbook(file);
