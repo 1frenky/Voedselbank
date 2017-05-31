@@ -45,10 +45,10 @@ public class Database {
             System.out.println(e);
         }
 
-        dbserver = "Localhost";
-        database = "Voedselbank";
-        username = "root";
-        password = "";
+        dbserver = "meru.hhs.nl";
+        database = "16102150";
+        username = "16102150";
+        password = "Voutiez4Ej";
     }
 
     /**
