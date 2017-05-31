@@ -255,6 +255,7 @@ public class Main extends javax.swing.JFrame {
         String filePath = f.getAbsolutePath();
         this.filenaam = filenaam;
         this.filePath = filePath;
+        
         lblPath.setText(filenaam);
     }//GEN-LAST:event_btnZoekExcelActionPerformed
 
