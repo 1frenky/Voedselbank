@@ -31,6 +31,9 @@ public class Main extends javax.swing.JFrame {
     private static Statement statement;
     private static ResultSet rs;
 
+    private String filenaam = null;
+    private String filePath = null;
+    
     public Main() {
         initComponents();
 
@@ -109,6 +112,12 @@ public class Main extends javax.swing.JFrame {
         jPanelMain = new javax.swing.JPanel();
         MainExitKnop = new java.awt.Button();
         MainLabelWelkom = new java.awt.Label();
+        jPanelIntake = new javax.swing.JPanel();
+        IntakeExitKnop = new java.awt.Button();
+        btnImportExcel = new javax.swing.JButton();
+        btnZoekExcel = new javax.swing.JButton();
+        lblPath = new javax.swing.JLabel();
+        lblMessage = new javax.swing.JLabel();
         jPanelProd = new javax.swing.JPanel();
         ProdExitKnop = new java.awt.Button();
         jPanelUitgift = new javax.swing.JPanel();
@@ -172,12 +181,30 @@ public class Main extends javax.swing.JFrame {
 
         jTabbedPaneGeheel.addTab("Main menu", jPanelMain);
 
-        ProdExitKnop.setLabel("Exit");
-        ProdExitKnop.addActionListener(new java.awt.event.ActionListener() {
+
+        IntakeExitKnop.setLabel("Exit");
+        IntakeExitKnop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ProdExitKnopActionPerformed(evt);
+                IntakeExitKnopActionPerformed(evt);
             }
         });
+
+        btnImportExcel.setText("Importeer Excelsheet");
+        btnImportExcel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImportExcelActionPerformed(evt);
+            }
+        });
+
+        btnZoekExcel.setText("Zoek Excelsheet");
+        btnZoekExcel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnZoekExcelActionPerformed(evt);
+            }
+        });
+
+        lblPath.setText("Kies een nieuw bestand");
+        lblPath.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
         javax.swing.GroupLayout jPanelProdLayout = new javax.swing.GroupLayout(jPanelProd);
         jPanelProd.setLayout(jPanelProdLayout);
@@ -407,7 +434,10 @@ public class Main extends javax.swing.JFrame {
         JFileChooser chooser = new JFileChooser();
         chooser.showOpenDialog(null);
         File f = chooser.getSelectedFile();
-        String filenaam = f.getAbsolutePath();
+        String filenaam = f.getName();
+        String filePath = f.getAbsolutePath();
+        this.filenaam = filenaam;
+        this.filePath = filePath;
         lblPath.setText(filenaam);
     }//GEN-LAST:event_btnZoekExcelActionPerformed
 
@@ -443,6 +473,12 @@ public class Main extends javax.swing.JFrame {
          int i = jTable1.getSelectedRow();
          TableModel model = jTable1.getModel();
     }//GEN-LAST:event_jTable1MouseClicked
+
+    private void btnImportExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportExcelActionPerformed
+        ImporteerExcelsheet importExcel = new ImporteerExcelsheet();
+        importExcel.importeerExcelsheet(this.filenaam,this.filePath);
+        lblMessage.setText("ExcelSheet is geimporteerd.");
+    }//GEN-LAST:event_btnImportExcelActionPerformed
 
     /**
          * @param args the command line arguments
@@ -499,6 +535,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton btnZoekExcel;
     private javax.swing.JButton btn_Delete;
     private javax.swing.JButton btn_inVolgorde;
+    private javax.swing.JButton btnImportExcel;
     private javax.swing.JPanel jPanelClient;
     private javax.swing.JPanel jPanelIntake;
     private javax.swing.JPanel jPanelMain;
@@ -508,6 +545,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPaneGeheel;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lblMessage;
     private javax.swing.JLabel lblPath;
     // End of variables declaration//GEN-END:variables
 }
