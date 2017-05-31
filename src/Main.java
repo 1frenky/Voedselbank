@@ -76,18 +76,26 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jpMainLayout.createSequentialGroup()
                 .addGap(233, 233, 233)
                 .addComponent(MainLabelWelkom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+<<<<<<< HEAD
                 .addContainerGap(240, Short.MAX_VALUE))
+=======
+                .addContainerGap(243, Short.MAX_VALUE))
+>>>>>>> e41983ce2f6a9ca5f53b7ce3a703339984ac27d9
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpMainLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnExitMain)
-                .addGap(42, 42, 42))
+                .addContainerGap())
         );
         jpMainLayout.setVerticalGroup(
             jpMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpMainLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(MainLabelWelkom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+<<<<<<< HEAD
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 602, Short.MAX_VALUE)
+=======
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 606, Short.MAX_VALUE)
+>>>>>>> e41983ce2f6a9ca5f53b7ce3a703339984ac27d9
                 .addComponent(btnExitMain)
                 .addContainerGap())
         );
@@ -127,7 +135,11 @@ public class Main extends javax.swing.JFrame {
                     .addGroup(jpIntakeLayout.createSequentialGroup()
                         .addGroup(jpIntakeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jpIntakeLayout.createSequentialGroup()
+<<<<<<< HEAD
                                 .addGap(0, 148, Short.MAX_VALUE)
+=======
+                                .addGap(0, 157, Short.MAX_VALUE)
+>>>>>>> e41983ce2f6a9ca5f53b7ce3a703339984ac27d9
                                 .addComponent(lblMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(lblPath, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -150,14 +162,18 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(btnImportExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
                 .addComponent(lblMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+<<<<<<< HEAD
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 295, Short.MAX_VALUE)
+=======
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 300, Short.MAX_VALUE)
+>>>>>>> e41983ce2f6a9ca5f53b7ce3a703339984ac27d9
                 .addComponent(btnExitIntake)
                 .addContainerGap())
         );
 
         jtpGeheel.addTab("Toevoegen Intakelijst", jpIntake);
 
-        jButton1.setText("jButton1");
+        jButton1.setText("Exit");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -169,14 +185,22 @@ public class Main extends javax.swing.JFrame {
         jpProductieLayout.setHorizontalGroup(
             jpProductieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpProductieLayout.createSequentialGroup()
+<<<<<<< HEAD
                 .addContainerGap(604, Short.MAX_VALUE)
+=======
+                .addContainerGap(641, Short.MAX_VALUE)
+>>>>>>> e41983ce2f6a9ca5f53b7ce3a703339984ac27d9
                 .addComponent(jButton1)
                 .addContainerGap())
         );
         jpProductieLayout.setVerticalGroup(
             jpProductieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpProductieLayout.createSequentialGroup()
+<<<<<<< HEAD
                 .addContainerGap(632, Short.MAX_VALUE)
+=======
+                .addContainerGap(636, Short.MAX_VALUE)
+>>>>>>> e41983ce2f6a9ca5f53b7ce3a703339984ac27d9
                 .addComponent(jButton1)
                 .addContainerGap())
         );
@@ -202,7 +226,11 @@ public class Main extends javax.swing.JFrame {
         jpUitgiftLayout.setVerticalGroup(
             jpUitgiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpUitgiftLayout.createSequentialGroup()
+<<<<<<< HEAD
                 .addContainerGap(632, Short.MAX_VALUE)
+=======
+                .addContainerGap(636, Short.MAX_VALUE)
+>>>>>>> e41983ce2f6a9ca5f53b7ce3a703339984ac27d9
                 .addComponent(btnExitUitgitfte)
                 .addContainerGap())
         );
@@ -221,14 +249,22 @@ public class Main extends javax.swing.JFrame {
         jpClientLayout.setHorizontalGroup(
             jpClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpClientLayout.createSequentialGroup()
+<<<<<<< HEAD
                 .addContainerGap(630, Short.MAX_VALUE)
+=======
+                .addContainerGap(641, Short.MAX_VALUE)
+>>>>>>> e41983ce2f6a9ca5f53b7ce3a703339984ac27d9
                 .addComponent(btnExitClient)
                 .addContainerGap())
         );
         jpClientLayout.setVerticalGroup(
             jpClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpClientLayout.createSequentialGroup()
+<<<<<<< HEAD
                 .addContainerGap(632, Short.MAX_VALUE)
+=======
+                .addContainerGap(636, Short.MAX_VALUE)
+>>>>>>> e41983ce2f6a9ca5f53b7ce3a703339984ac27d9
                 .addComponent(btnExitClient)
                 .addContainerGap())
         );
@@ -247,14 +283,22 @@ public class Main extends javax.swing.JFrame {
         jpManageLayout.setHorizontalGroup(
             jpManageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpManageLayout.createSequentialGroup()
+<<<<<<< HEAD
                 .addContainerGap(630, Short.MAX_VALUE)
+=======
+                .addContainerGap(641, Short.MAX_VALUE)
+>>>>>>> e41983ce2f6a9ca5f53b7ce3a703339984ac27d9
                 .addComponent(btnExitManage)
                 .addContainerGap())
         );
         jpManageLayout.setVerticalGroup(
             jpManageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpManageLayout.createSequentialGroup()
+<<<<<<< HEAD
                 .addContainerGap(632, Short.MAX_VALUE)
+=======
+                .addContainerGap(636, Short.MAX_VALUE)
+>>>>>>> e41983ce2f6a9ca5f53b7ce3a703339984ac27d9
                 .addComponent(btnExitManage)
                 .addContainerGap())
         );
@@ -283,7 +327,6 @@ public class Main extends javax.swing.JFrame {
         String filePath = f.getAbsolutePath();
         this.filenaam = filenaam;
         this.filePath = filePath;
-        
         lblPath.setText(filenaam);
     }//GEN-LAST:event_btnZoekExcelActionPerformed
 

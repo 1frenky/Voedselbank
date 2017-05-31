@@ -64,12 +64,16 @@
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="233" max="-2" attributes="0"/>
                       <Component id="MainLabelWelkom" min="-2" max="-2" attributes="0"/>
+<<<<<<< HEAD
                       <EmptySpace pref="240" max="32767" attributes="0"/>
+=======
+                      <EmptySpace pref="243" max="32767" attributes="0"/>
+>>>>>>> e41983ce2f6a9ca5f53b7ce3a703339984ac27d9
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="btnExitMain" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -78,7 +82,11 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="MainLabelWelkom" min="-2" max="-2" attributes="0"/>
+<<<<<<< HEAD
                       <EmptySpace pref="602" max="32767" attributes="0"/>
+=======
+                      <EmptySpace pref="606" max="32767" attributes="0"/>
+>>>>>>> e41983ce2f6a9ca5f53b7ce3a703339984ac27d9
                       <Component id="btnExitMain" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -121,7 +129,11 @@
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Group type="102" attributes="0">
+<<<<<<< HEAD
                                       <EmptySpace min="0" pref="148" max="32767" attributes="0"/>
+=======
+                                      <EmptySpace min="0" pref="157" max="32767" attributes="0"/>
+>>>>>>> e41983ce2f6a9ca5f53b7ce3a703339984ac27d9
                                       <Component id="lblMessage" min="-2" pref="377" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="lblPath" max="32767" attributes="0"/>
@@ -153,7 +165,11 @@
                       <Component id="btnImportExcel" min="-2" pref="55" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                       <Component id="lblMessage" min="-2" pref="78" max="-2" attributes="0"/>
+<<<<<<< HEAD
                       <EmptySpace pref="295" max="32767" attributes="0"/>
+=======
+                      <EmptySpace pref="300" max="32767" attributes="0"/>
+>>>>>>> e41983ce2f6a9ca5f53b7ce3a703339984ac27d9
                       <Component id="btnExitIntake" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -212,7 +228,11 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
+<<<<<<< HEAD
                       <EmptySpace pref="604" max="32767" attributes="0"/>
+=======
+                      <EmptySpace pref="641" max="32767" attributes="0"/>
+>>>>>>> e41983ce2f6a9ca5f53b7ce3a703339984ac27d9
                       <Component id="jButton1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -221,7 +241,11 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
+<<<<<<< HEAD
                       <EmptySpace pref="632" max="32767" attributes="0"/>
+=======
+                      <EmptySpace pref="636" max="32767" attributes="0"/>
+>>>>>>> e41983ce2f6a9ca5f53b7ce3a703339984ac27d9
                       <Component id="jButton1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -231,7 +255,7 @@
           <SubComponents>
             <Component class="javax.swing.JButton" name="jButton1">
               <Properties>
-                <Property name="text" type="java.lang.String" value="jButton1"/>
+                <Property name="text" type="java.lang.String" value="Exit"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
@@ -261,7 +285,11 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
+<<<<<<< HEAD
                       <EmptySpace pref="632" max="32767" attributes="0"/>
+=======
+                      <EmptySpace pref="636" max="32767" attributes="0"/>
+>>>>>>> e41983ce2f6a9ca5f53b7ce3a703339984ac27d9
                       <Component id="btnExitUitgitfte" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -292,7 +320,11 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
+<<<<<<< HEAD
                       <EmptySpace pref="630" max="32767" attributes="0"/>
+=======
+                      <EmptySpace pref="641" max="32767" attributes="0"/>
+>>>>>>> e41983ce2f6a9ca5f53b7ce3a703339984ac27d9
                       <Component id="btnExitClient" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -301,7 +333,11 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
+<<<<<<< HEAD
                       <EmptySpace pref="632" max="32767" attributes="0"/>
+=======
+                      <EmptySpace pref="636" max="32767" attributes="0"/>
+>>>>>>> e41983ce2f6a9ca5f53b7ce3a703339984ac27d9
                       <Component id="btnExitClient" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -332,7 +368,11 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
+<<<<<<< HEAD
                       <EmptySpace pref="630" max="32767" attributes="0"/>
+=======
+                      <EmptySpace pref="641" max="32767" attributes="0"/>
+>>>>>>> e41983ce2f6a9ca5f53b7ce3a703339984ac27d9
                       <Component id="btnExitManage" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -341,7 +381,11 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
+<<<<<<< HEAD
                       <EmptySpace pref="632" max="32767" attributes="0"/>
+=======
+                      <EmptySpace pref="636" max="32767" attributes="0"/>
+>>>>>>> e41983ce2f6a9ca5f53b7ce3a703339984ac27d9
                       <Component id="btnExitManage" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>

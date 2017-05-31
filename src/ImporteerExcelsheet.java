@@ -22,8 +22,10 @@ public class ImporteerExcelsheet {
     private String xls = ".xls";
     private String xlsx = ".xlsx";
     
-    // Dit klopt nog niet!!!!!!!!!
-    private Sheet sheet;
+    // Code om de excel uit te lezen voor .xlsx en .xls
+    XSSFSheet sheet;
+    HSSFSheet sheet1;
+    Iterator<Row> rowIterator;
     
     public ImporteerExcelsheet(){
     }
@@ -32,32 +34,20 @@ public class ImporteerExcelsheet {
         try
         {   
             FileInputStream file = new FileInputStream(new File(filePath));
- 
-//            if ( filePath.toLowerCase().indexOf(xlsx.toLowerCase()) != -1 ) {
-//                XSSFWorkbook workbook = new XSSFWorkbook(filePath);
-//                
-//                XSSFSheet sheet = workbook.getSheetAt(0);
-//                
-//            } else {
-//                HSSFWorkbook workbook = new HSSFWorkbook(file);
-//                
-//                
-//                HSSFSheet sheet = workbook.getSheetAt(0);
-//            }
             
-            //Create Workbook instance holding reference to .xlsx file
-           XSSFWorkbook workbook = new XSSFWorkbook(filePath);
-//=              voor .xls bestanden
-            //HSSFWorkbook workbook = new HSSFWorkbook(file);
-            
-            //Get first/desired sheet from the workbook
-            //voor .xlsx bestanden
-              XSSFSheet sheet = workbook.getSheetAt(0);
-//          voor .xls bestanden
-           // HSSFSheet sheet = workbook.getSheetAt(0);
+            if ( filePath.toLowerCase().indexOf(xlsx.toLowerCase()) != -1 ) {
+                XSSFWorkbook wbXlsx = new XSSFWorkbook(filePath);
+                sheet = wbXlsx.getSheetAt(0);
+                //Iterate through each rows one by one
+                rowIterator = sheet.iterator();
+            } else {
+                HSSFWorkbook wbXls = new HSSFWorkbook(file);
+                sheet1 = wbXls.getSheetAt(0);
+                //Iterate through each rows one by one
+                rowIterator = sheet1.iterator();
+            }
             
             //Iterate through each rows one by one
-            Iterator<Row> rowIterator = sheet.iterator();
             while (rowIterator.hasNext()) 
             {
                 Row row = rowIterator.next();
