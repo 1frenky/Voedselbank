@@ -48,7 +48,7 @@ public class Database {
         dbserver = "Localhost";
         database = "Voedselbank";
         username = "root";
-        password = "";
+        password = "root";
     }
 
     /**
