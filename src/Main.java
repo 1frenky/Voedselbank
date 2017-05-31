@@ -1,5 +1,4 @@
 
-import java.awt.Color;
 import java.io.*;
 import javax.swing.*;
 
@@ -35,22 +34,20 @@ public class Main extends javax.swing.JFrame {
 
         jTabbedPaneGeheel = new javax.swing.JTabbedPane();
         jPanelMain = new javax.swing.JPanel();
-        MainExitKnop = new java.awt.Button();
         MainLabelWelkom = new java.awt.Label();
+        btnExitMain = new javax.swing.JButton();
         jPanelIntake = new javax.swing.JPanel();
-        IntakeExitKnop = new java.awt.Button();
         btnImportExcel = new javax.swing.JButton();
         btnZoekExcel = new javax.swing.JButton();
         lblPath = new javax.swing.JLabel();
         lblMessage = new javax.swing.JLabel();
-        jPanelProd = new javax.swing.JPanel();
-        ProdExitKnop = new java.awt.Button();
+        btnExitIntake = new javax.swing.JButton();
         jPanelUitgift = new javax.swing.JPanel();
-        UitgifteExitKnop = new java.awt.Button();
+        btnExitUitgitfte = new javax.swing.JButton();
         jPanelClient = new javax.swing.JPanel();
-        ClientExitKnop = new java.awt.Button();
+        btnExitClient = new javax.swing.JButton();
         jPanelManage = new javax.swing.JPanel();
-        ManageExitKnop = new java.awt.Button();
+        btnExitManage = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Database app Voedselbank");
@@ -60,29 +57,27 @@ public class Main extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(700, 700));
         setResizable(false);
 
-        MainExitKnop.setLabel("Exit");
-        MainExitKnop.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MainExitKnopActionPerformed(evt);
-            }
-        });
-
         MainLabelWelkom.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         MainLabelWelkom.setText("Welkom bij de Voedselbank applicatie.");
+
+        btnExitMain.setText("Exit");
+        btnExitMain.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExitMainActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelMainLayout = new javax.swing.GroupLayout(jPanelMain);
         jPanelMain.setLayout(jPanelMainLayout);
         jPanelMainLayout.setHorizontalGroup(
             jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelMainLayout.createSequentialGroup()
-                .addGroup(jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMainLayout.createSequentialGroup()
-                        .addContainerGap(627, Short.MAX_VALUE)
-                        .addComponent(MainExitKnop, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelMainLayout.createSequentialGroup()
-                        .addGap(233, 233, 233)
-                        .addComponent(MainLabelWelkom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(233, 233, 233)
+                .addComponent(MainLabelWelkom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(262, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMainLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnExitMain)
                 .addContainerGap())
         );
         jPanelMainLayout.setVerticalGroup(
@@ -90,19 +85,12 @@ public class Main extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMainLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(MainLabelWelkom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 792, Short.MAX_VALUE)
-                .addComponent(MainExitKnop, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 799, Short.MAX_VALUE)
+                .addComponent(btnExitMain)
                 .addContainerGap())
         );
 
         jTabbedPaneGeheel.addTab("Main menu", jPanelMain);
-
-        IntakeExitKnop.setLabel("Exit");
-        IntakeExitKnop.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                IntakeExitKnopActionPerformed(evt);
-            }
-        });
 
         btnImportExcel.setText("Importeer Excelsheet");
         btnImportExcel.addActionListener(new java.awt.event.ActionListener() {
@@ -121,25 +109,32 @@ public class Main extends javax.swing.JFrame {
         lblPath.setText("Kies een nieuw bestand");
         lblPath.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
+        btnExitIntake.setText("Exit");
+        btnExitIntake.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExitIntakeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelIntakeLayout = new javax.swing.GroupLayout(jPanelIntake);
         jPanelIntake.setLayout(jPanelIntakeLayout);
         jPanelIntakeLayout.setHorizontalGroup(
             jPanelIntakeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelIntakeLayout.createSequentialGroup()
-                .addGroup(jPanelIntakeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanelIntakeLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(IntakeExitKnop, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanelIntakeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelIntakeLayout.createSequentialGroup()
                         .addGroup(jPanelIntakeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanelIntakeLayout.createSequentialGroup()
-                                .addGap(0, 172, Short.MAX_VALUE)
+                                .addGap(0, 176, Short.MAX_VALUE)
                                 .addComponent(lblMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(lblPath, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanelIntakeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnImportExcel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnZoekExcel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(btnZoekExcel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelIntakeLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnExitIntake)))
                 .addContainerGap())
         );
         jPanelIntakeLayout.setVerticalGroup(
@@ -153,64 +148,43 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(btnImportExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
                 .addComponent(lblMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 486, Short.MAX_VALUE)
-                .addComponent(IntakeExitKnop, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 493, Short.MAX_VALUE)
+                .addComponent(btnExitIntake)
                 .addContainerGap())
         );
 
         jTabbedPaneGeheel.addTab("Toevoegen Intakelijst", jPanelIntake);
 
-        ProdExitKnop.setLabel("Exit");
-        ProdExitKnop.addActionListener(new java.awt.event.ActionListener() {
+        btnExitUitgitfte.setText("Exit");
+        btnExitUitgitfte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ProdExitKnopActionPerformed(evt);
+                btnExitUitgitfteActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanelProdLayout = new javax.swing.GroupLayout(jPanelProd);
-        jPanelProd.setLayout(jPanelProdLayout);
-        jPanelProdLayout.setHorizontalGroup(
-            jPanelProdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelProdLayout.createSequentialGroup()
-                .addContainerGap(627, Short.MAX_VALUE)
-                .addComponent(ProdExitKnop, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanelProdLayout.setVerticalGroup(
-            jPanelProdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelProdLayout.createSequentialGroup()
-                .addContainerGap(822, Short.MAX_VALUE)
-                .addComponent(ProdExitKnop, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        jTabbedPaneGeheel.addTab("Productielijst", jPanelProd);
-
-        UitgifteExitKnop.setLabel("Exit");
 
         javax.swing.GroupLayout jPanelUitgiftLayout = new javax.swing.GroupLayout(jPanelUitgift);
         jPanelUitgift.setLayout(jPanelUitgiftLayout);
         jPanelUitgiftLayout.setHorizontalGroup(
             jPanelUitgiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelUitgiftLayout.createSequentialGroup()
-                .addContainerGap(627, Short.MAX_VALUE)
-                .addComponent(UitgifteExitKnop, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(660, Short.MAX_VALUE)
+                .addComponent(btnExitUitgitfte)
                 .addContainerGap())
         );
         jPanelUitgiftLayout.setVerticalGroup(
             jPanelUitgiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelUitgiftLayout.createSequentialGroup()
-                .addContainerGap(822, Short.MAX_VALUE)
-                .addComponent(UitgifteExitKnop, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(829, Short.MAX_VALUE)
+                .addComponent(btnExitUitgitfte)
                 .addContainerGap())
         );
 
         jTabbedPaneGeheel.addTab("Uitgiftpunten", jPanelUitgift);
 
-        ClientExitKnop.setLabel("Exit");
-        ClientExitKnop.addActionListener(new java.awt.event.ActionListener() {
+        btnExitClient.setText("Exit");
+        btnExitClient.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ClientExitKnopActionPerformed(evt);
+                btnExitClientActionPerformed(evt);
             }
         });
 
@@ -219,24 +193,24 @@ public class Main extends javax.swing.JFrame {
         jPanelClientLayout.setHorizontalGroup(
             jPanelClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelClientLayout.createSequentialGroup()
-                .addContainerGap(627, Short.MAX_VALUE)
-                .addComponent(ClientExitKnop, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(660, Short.MAX_VALUE)
+                .addComponent(btnExitClient)
                 .addContainerGap())
         );
         jPanelClientLayout.setVerticalGroup(
             jPanelClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelClientLayout.createSequentialGroup()
-                .addContainerGap(822, Short.MAX_VALUE)
-                .addComponent(ClientExitKnop, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(829, Short.MAX_VALUE)
+                .addComponent(btnExitClient)
                 .addContainerGap())
         );
 
         jTabbedPaneGeheel.addTab("Cliënt overzicht", jPanelClient);
 
-        ManageExitKnop.setLabel("Exit");
-        ManageExitKnop.addActionListener(new java.awt.event.ActionListener() {
+        btnExitManage.setText("Exit");
+        btnExitManage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ManageExitKnopActionPerformed(evt);
+                btnExitManageActionPerformed(evt);
             }
         });
 
@@ -245,15 +219,15 @@ public class Main extends javax.swing.JFrame {
         jPanelManageLayout.setHorizontalGroup(
             jPanelManageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelManageLayout.createSequentialGroup()
-                .addContainerGap(627, Short.MAX_VALUE)
-                .addComponent(ManageExitKnop, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(660, Short.MAX_VALUE)
+                .addComponent(btnExitManage)
                 .addContainerGap())
         );
         jPanelManageLayout.setVerticalGroup(
             jPanelManageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelManageLayout.createSequentialGroup()
-                .addContainerGap(822, Short.MAX_VALUE)
-                .addComponent(ManageExitKnop, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(829, Short.MAX_VALUE)
+                .addComponent(btnExitManage)
                 .addContainerGap())
         );
 
@@ -273,22 +247,6 @@ public class Main extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void MainExitKnopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MainExitKnopActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_MainExitKnopActionPerformed
-
-    private void ProdExitKnopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProdExitKnopActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_ProdExitKnopActionPerformed
-
-    private void ClientExitKnopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClientExitKnopActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_ClientExitKnopActionPerformed
-
-    private void ManageExitKnopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ManageExitKnopActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_ManageExitKnopActionPerformed
-
     private void btnZoekExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnZoekExcelActionPerformed
         JFileChooser chooser = new JFileChooser();
         chooser.showOpenDialog(null);
@@ -300,15 +258,31 @@ public class Main extends javax.swing.JFrame {
         lblPath.setText(filenaam);
     }//GEN-LAST:event_btnZoekExcelActionPerformed
 
-    private void IntakeExitKnopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IntakeExitKnopActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_IntakeExitKnopActionPerformed
-
     private void btnImportExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportExcelActionPerformed
         ImporteerExcelsheet importExcel = new ImporteerExcelsheet();
         importExcel.importeerExcelsheet(this.filenaam,this.filePath);
         lblMessage.setText("ExcelSheet is geimporteerd.");
     }//GEN-LAST:event_btnImportExcelActionPerformed
+
+    private void btnExitMainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitMainActionPerformed
+       System.exit(0);
+    }//GEN-LAST:event_btnExitMainActionPerformed
+
+    private void btnExitIntakeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitIntakeActionPerformed
+       System.exit(0);
+    }//GEN-LAST:event_btnExitIntakeActionPerformed
+
+    private void btnExitUitgitfteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitUitgitfteActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_btnExitUitgitfteActionPerformed
+
+    private void btnExitClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitClientActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_btnExitClientActionPerformed
+
+    private void btnExitManageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitManageActionPerformed
+       System.exit(0);
+    }//GEN-LAST:event_btnExitManageActionPerformed
 
     /**
      * @param args the command line arguments
@@ -346,20 +320,18 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private java.awt.Button ClientExitKnop;
-    private java.awt.Button IntakeExitKnop;
-    private java.awt.Button MainExitKnop;
     private java.awt.Label MainLabelWelkom;
-    private java.awt.Button ManageExitKnop;
-    private java.awt.Button ProdExitKnop;
-    private java.awt.Button UitgifteExitKnop;
+    private javax.swing.JButton btnExitClient;
+    private javax.swing.JButton btnExitIntake;
+    private javax.swing.JButton btnExitMain;
+    private javax.swing.JButton btnExitManage;
+    private javax.swing.JButton btnExitUitgitfte;
     private javax.swing.JButton btnImportExcel;
     private javax.swing.JButton btnZoekExcel;
     private javax.swing.JPanel jPanelClient;
     private javax.swing.JPanel jPanelIntake;
     private javax.swing.JPanel jPanelMain;
     private javax.swing.JPanel jPanelManage;
-    private javax.swing.JPanel jPanelProd;
     private javax.swing.JPanel jPanelUitgift;
     private javax.swing.JTabbedPane jTabbedPaneGeheel;
     private javax.swing.JLabel lblMessage;
