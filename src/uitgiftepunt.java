@@ -24,6 +24,7 @@ public class uitgiftepunt {
     }
 
     public String getUitgifteNaam() {
+        
         return uitgifteNaam;
     }
 
