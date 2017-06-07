@@ -8,9 +8,7 @@ package Database;
 
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Scanner;
 
 /**
@@ -23,6 +21,11 @@ public class Database {
     private static String database;
     private static String username;
     private static String password;
+    
+    public static Connection con = null;
+    public static Statement stmt = null;
+    public static PreparedStatement ps = null;
+    public static ResultSet rs = null;
 
     private static Connection activeConn;
 
@@ -74,7 +77,6 @@ public class Database {
         String connectionString = "jdbc:mysql://" + dbserver + ":3306/" + database + "?"
                 + "user=" + username + "&password=" + password;
 
-        // return DriverManager.getConnection("academie", "blok1", "academie");
         return DriverManager.getConnection(connectionString);
     }
 
