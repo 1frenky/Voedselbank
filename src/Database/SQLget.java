@@ -25,7 +25,7 @@ public class SQLget extends Database {
     
     public int getVerwijzernr(String verwijzerNaam, String verwijzersCp){
         int verwijzersnr = 0;
-        String sql = "SELECT verwijzernr FROM verwijzer WHERE verwijzernaam = ? AND verwijzersContactpersoon = ?";
+        String sql = "SELECT verwijzernr FROM `16102150`.verwijzer WHERE verwijzerNaam = ? AND verwijzersContactpersoon = ?";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, verwijzerNaam);
@@ -33,7 +33,7 @@ public class SQLget extends Database {
             rs = ps.executeQuery();
             
             while (rs.next()) {
-                verwijzersnr = rs.getInt("Verwijzersnr");
+                verwijzersnr = rs.getInt("Verwijzernr");
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -43,7 +43,7 @@ public class SQLget extends Database {
     
     public int getIntakeId(int kaartnummer){
         int intakeID = 0;
-        String sql = "SELECT intakeID FROM intake WHERE kaartnummer = ?";
+        String sql = "SELECT intakeID FROM `16102150`.intake JOIN `16102150`.client ON client = kaartnummer WHERE kaartnummer = ?";
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, kaartnummer);

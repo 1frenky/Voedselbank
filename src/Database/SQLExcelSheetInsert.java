@@ -37,7 +37,7 @@ public class SQLExcelSheetInsert extends Database {
     public void insertExcelVerwijzer(String verwijzerNaam, String verwijzerContactpersoon, String verwijzersTelefoonnr,
             String verwijzersDoorEmail, String verwijzersNaar, String verwijzersDoorContactpersoon, String verwijzersNaarTelefoonnummer,
             String verwijzersNaarEmail) throws SQLException {
-            String sql = "INSERT INTO intake(verwijzernaam, verwijzersContactpersoon, verwijzersTelefoonnr, "
+            String sql = "INSERT INTO `16102150`.verwijzer(verwijzerNaam, verwijzersContactpersoon, verwijzersTelefoonnr, "
                 + "verwijzerEmail, verwijzersNaar, verwijzersNaarContactPersoon, verwijzersNaarTelefoon, verwijzersNaarEmail) "
                 + "VALUES(?,?,?,?,?,?,?,?)";
         try {
@@ -57,11 +57,11 @@ public class SQLExcelSheetInsert extends Database {
     }
     
     public void insertExcelClient(int kaartnummer, String naam, String naamPartner, String telefoonnummer,
-            String email, String mobiel, int aantalPersonen, int aantalPersonenInDeNorm, double gebruikInMaanden, String idSoort, java.util.Date datumUitgifteId,
-            String idNummer, String plaatsUitgifte, String adres, String postcode,
+            String email, String mobiel, int aantalPersonen, int aantalPersonenInDeNorm, double gebruikInMaanden, String idSoort, 
+            String datumUitgifteId, String idNummer, String plaatsUitgifte, String adres, String postcode,
             String plaats, String status, String pakketSoort, int verwijzernr) throws SQLException {
-            String sql = "Insert into client(kaartnummer, naam, naamPartner, telefoonnummer, email, mobiel, aantalPersonen, "
-                + "gebruikInMaanden, idSoort, idNummer, plaats_Uitgifte, adres, postcode, plaats, status, pakketSoort, Verwijzer) "
+            String sql = "Insert into `16102150`.client(kaartnummer, naam, naamPartner, telefoonnummer, email, mobiel, aantalPersonen, aantalPersonenInDeNorm,"
+                + "gebruikInMaanden, idSoort, datumUitgifteId, idNummer, plaatsUitgifteId, adres, postcode, plaats, status, pakketSoort, Verwijzer) "
                 + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         
         try {
@@ -76,7 +76,7 @@ public class SQLExcelSheetInsert extends Database {
             ps.setInt(8, aantalPersonenInDeNorm);
             ps.setDouble(9, gebruikInMaanden);
             ps.setString(10, idSoort);
-            ps.setDate(11, (Date) datumUitgifteId);
+            ps.setString(11, datumUitgifteId);
             ps.setString(12, idNummer);
             ps.setString(13, plaatsUitgifte);
             ps.setString(14, adres);
@@ -91,16 +91,16 @@ public class SQLExcelSheetInsert extends Database {
         }
     }
     
-    public void insertExcelIntake(String intaker, java.util.Date intakeDatum, java.util.Date startdatumUitgifte, java.util.Date datumHerintake,
+    public void insertExcelIntake(String intaker, String intakeDatum, String startdatumUitgifte, String datumHerintake,
                                   int kaartnummer, String uitgiftepunt) throws SQLException {
-            String sql = "INSERT INTO intake(intaker, intakeDatum, startDatum, datumHerintake, client, uitgiftepunt) "
+            String sql = "INSERT INTO `16102150`.intake(intaker, intakeDatum, startDatum, datumHerintake, client, uitgiftepunt) "
                 + "VALUES(?, ?, ?, ? , ?, ?)";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, intaker);
-            ps.setDate(2, (Date) intakeDatum);
-            ps.setDate(3, (Date) startdatumUitgifte);
-            ps.setDate(4, (Date) datumHerintake);
+            ps.setString(2, intakeDatum);
+            ps.setString(3, startdatumUitgifte);
+            ps.setString(4, datumHerintake);
             ps.setInt(5, kaartnummer);
             ps.setString(6, uitgiftepunt);
             ps.executeUpdate();
@@ -109,11 +109,11 @@ public class SQLExcelSheetInsert extends Database {
         }
     }
     
-    public void insertExcelStopt(java.sql.Date datumStopzetting, String redenStopzetting, int Intake) throws SQLException {
-        String sql = "INSERT INTO Stopt(ID, datumStopzetting, redenStopzetting, Intake) VALUES(?, ?, ?)";
+    public void insertExcelStopt(String datumStopzetting, String redenStopzetting, int Intake) throws SQLException {
+        String sql = "INSERT INTO `16102150`.stopt(datumStopzetting, redenStopzetting, Intake) VALUES(?, ?, ?)";
         try {
             ps = con.prepareStatement(sql);
-            ps.setDate(1, datumStopzetting);
+            ps.setString(1, datumStopzetting);
             ps.setString(2, redenStopzetting);
             ps.setInt(3, Intake);
             ps.executeUpdate();
