@@ -3,6 +3,7 @@ import Database.SQLExcelSheetInsert;
 import Database.SQLget;
 import java.io.File;
 import java.io.FileInputStream;
+import static java.lang.Boolean.TRUE;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
@@ -30,14 +31,10 @@ public class ImporteerExcelsheet {
     HSSFSheet sheet1;
     Iterator<Row> rowIterator;
     
-    XSSFCell excelDatum1;
-    HSSFCell excelDatum2;
-    private String excelDatum;
-
     private String datumUitgifteId = null;
+    private String excelDatum = null;
+    private int pakketAantal = 0;
     
-    private String excelDate = null;
-            
     public ImporteerExcelsheet(){
     }
 
@@ -50,7 +47,7 @@ public class ImporteerExcelsheet {
                 sheet = wbXlsx.getSheetAt(0);
                 Row row = sheet.getRow(3);
                 Cell cell = row.getCell(1);
-                this.excelDate = cell.getStringCellValue();
+                this.excelDatum = cell.getStringCellValue();
                 //Iterate through each rows one by one
                 rowIterator = sheet.iterator();
             } else {
@@ -58,11 +55,11 @@ public class ImporteerExcelsheet {
                 sheet1 = wbXls.getSheetAt(0);
                 Row row = sheet1.getRow(3);
                 Cell cell = row.getCell(1);
-                this.excelDate = cell.getStringCellValue();
+                this.excelDatum = cell.getStringCellValue();
                 //Iterate through each rows one by one
                 rowIterator = sheet1.iterator();
             }
-            System.out.println(this.excelDate);
+            
             //Iterate through each rows one by one
             while (rowIterator.hasNext()) {
                 Row row = rowIterator.next();
@@ -162,30 +159,31 @@ public class ImporteerExcelsheet {
                 String pakketSoort = row.getCell(32).getStringCellValue();
                 
                 // Query's om de excelsheet in de database te krijgen
-//                SQLExcelSheetInsert ExcelSQL1 = new SQLExcelSheetInsert();
-//                ExcelSQL1.insertExcelVerwijzer(verwijzerNaam, verwijzersDoorContactpersoon, 
-//                        verwijzersDoorTelefoonnummer, verwijzersDoorEmail, verwijzersNaar, verwijzersNaarContactpersoon, 
-//                        verwijzersNaarTelefoonnummer, verwijzersNaarEmail);
-//                
-//                // Query zorgt ervoor dat je de juiste verwijzernr krijgt
-//                SQLget getSQL1 = new SQLget();
-//                int Verwijzer = getSQL1.getVerwijzernr(verwijzerNaam, verwijzersDoorContactpersoon);
-//                
-//                SQLExcelSheetInsert ExcelSQL2 = new SQLExcelSheetInsert();
-//                ExcelSQL2.insertExcelClient(kaartnummer, naam, naamPartner, telefoonnummer, email, mobiel, 
-//                        aantalPersonen, aantalPersonenInDeNorm, gebruikInMaanden, idSoort, this.datumUitgifteId, idNummer,
-//                        plaatsUitgifteId, adres, postcode, plaats, status, pakketSoort, Verwijzer);
-//                
-//                ExcelSQL2.insertExcelIntake(intaker, intakeDatum, startDatumUitgifte, datumHerintake, 
-//                        kaartnummer, uitgiftepunt);
-//                
-//                SQLget getSQL2 = new SQLget();
-//                int intakeId = getSQL2.getIntakeId(kaartnummer);
-//                
-//                SQLExcelSheetInsert ExcelSQL3 = new SQLExcelSheetInsert();
-//                ExcelSQL3.insertExcelStopt(datumStopzetting, redenStopzetting, intakeId);
+                SQLExcelSheetInsert excelSQL = new SQLExcelSheetInsert();
+                SQLget getSQL = new SQLget();
                 
+                excelSQL.insertExcelVerwijzer(verwijzerNaam, verwijzersDoorContactpersoon, 
+                        verwijzersDoorTelefoonnummer, verwijzersDoorEmail, verwijzersNaar, verwijzersNaarContactpersoon, 
+                        verwijzersNaarTelefoonnummer, verwijzersNaarEmail);
                 
+                // Query zorgt ervoor dat je de juiste verwijzernr krijgt
+                int Verwijzer = getSQL.getVerwijzernr(verwijzerNaam, verwijzersDoorContactpersoon);
+                
+                excelSQL.insertExcelClient(kaartnummer, naam, naamPartner, telefoonnummer, email, mobiel, 
+                        aantalPersonen, aantalPersonenInDeNorm, gebruikInMaanden, idSoort, this.datumUitgifteId, idNummer,
+                        plaatsUitgifteId, adres, postcode, plaats, status, pakketSoort, Verwijzer);
+                
+                excelSQL.insertExcelIntake(intaker, intakeDatum, startDatumUitgifte, datumHerintake, 
+                        kaartnummer, uitgiftepunt);
+                
+                int intakeId = getSQL.getIntakeId(kaartnummer);
+                
+                SQLExcelSheetInsert ExcelSQL3 = new SQLExcelSheetInsert();
+                ExcelSQL3.insertExcelStopt(datumStopzetting, redenStopzetting, intakeId);
+                
+                this.pakketAantal = getSQL.getPakketAantal(kaartnummer);
+               
+                excelSQL.insertVoedselpakket(this.excelDatum, this.pakketAantal, status, intakeId, uitgiftepunt);
                 
                 System.out.println("");
             }

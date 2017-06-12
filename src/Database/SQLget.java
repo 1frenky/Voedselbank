@@ -16,17 +16,13 @@ import java.sql.SQLException;
 public class SQLget extends Database {
     
     public SQLget() throws SQLException, IOException {
-        try {
-            con = Database.getConnection();
-        } catch(Exception e) {
-            e.getMessage();
-        }
     }
     
-    public int getVerwijzernr(String verwijzerNaam, String verwijzersCp){
+    public int getVerwijzernr(String verwijzerNaam, String verwijzersCp) throws IOException{
         int verwijzersnr = 0;
         String sql = "SELECT verwijzernr FROM `16102150`.verwijzer WHERE verwijzerNaam = ? AND verwijzersContactpersoon = ?";
         try {
+            con = Database.getConnection();
             ps = con.prepareStatement(sql);
             ps.setString(1, verwijzerNaam);
             ps.setString(2, verwijzersCp);
@@ -37,14 +33,17 @@ public class SQLget extends Database {
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        } catch(Exception e) {
+            e.getMessage();
         }
     return verwijzersnr;
     }
     
-    public int getIntakeId(int kaartnummer){
+    public int getIntakeId(int kaartnummer) throws IOException{
         int intakeID = 0;
         String sql = "SELECT intakeID FROM `16102150`.intake JOIN `16102150`.client ON client = kaartnummer WHERE kaartnummer = ?";
         try {
+            con = Database.getConnection();
             ps = con.prepareStatement(sql);
             ps.setInt(1, kaartnummer);
             rs = ps.executeQuery();
@@ -54,7 +53,44 @@ public class SQLget extends Database {
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        } catch(Exception e) {
+            e.getMessage();
         }
     return intakeID;
+    }
+    
+    public int getPakketAantal(int kaartnummer){
+       String pakketSoort = null;
+       int pakketAantal = 0;
+       String sql = "SELECT pakketsoort from client WHERE kaartnummer = ? AND status = 'Actief'";
+       //    String sql = "SELECT client.pakketsoort from intake JOIN client ON intake.client = client.kaartnummer JOIN uitgiftepunt ON intake.Uitgiftepunt = uitgifteNaam WHERE kaartnummer = 69664";
+    try{
+        con = Database.getConnection();
+        ps = con.prepareStatement(sql);
+        ps.setInt(1, kaartnummer);
+        rs = ps.executeQuery();
+        
+        while(rs.next()){
+            pakketSoort = rs.getString("pakketSoort");
+        }
+        
+        if (pakketSoort.equals("Enkelvoudig pakekt")){
+                    pakketAantal = 1; 
+                }
+                if(pakketSoort.equals("Dubbel pakket")){
+                    pakketAantal = 2;
+                }
+                if(pakketSoort.equals("3-voudig pakket")){
+                    pakketAantal = 3;
+                }else {
+                 pakketAantal = 0;
+                }
+                
+    }catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } catch(Exception e) {
+            e.getMessage();
+        }
+    return pakketAantal;
     }
 }

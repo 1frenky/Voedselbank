@@ -214,7 +214,7 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jtpGeheel.addTab("Uitgiftpunten", jpUitgift);
+        jtpGeheel.addTab("Uitgiftepunten", jpUitgift);
 
         btnExitClient.setText("Exit");
         btnExitClient.addActionListener(new java.awt.event.ActionListener() {
