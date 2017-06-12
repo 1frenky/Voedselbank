@@ -4,11 +4,15 @@ import Database.SQLget;
 import java.io.File;
 import java.io.FileInputStream;
 import static java.lang.Boolean.TRUE;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.Locale;
 
 import org.apache.poi.hssf.usermodel.*;
+import static org.apache.poi.hssf.usermodel.HeaderFooter.date;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellReference;
 import org.apache.poi.xssf.usermodel.*;
@@ -47,7 +51,13 @@ public class ImporteerExcelsheet {
                 sheet = wbXlsx.getSheetAt(0);
                 Row row = sheet.getRow(3);
                 Cell cell = row.getCell(1);
-                this.excelDatum = cell.getStringCellValue();
+                
+                // convert String dd-mm-yyyy naar String yyyy-mm-dd 
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                String excelDatum1 = cell.getStringCellValue();
+                Date date1 = new SimpleDateFormat("dd-MM-yyyy").parse(excelDatum1);  
+                this.excelDatum = formatter.format(date1);
+                
                 //Iterate through each rows one by one
                 rowIterator = sheet.iterator();
             } else {
@@ -55,7 +65,13 @@ public class ImporteerExcelsheet {
                 sheet1 = wbXls.getSheetAt(0);
                 Row row = sheet1.getRow(3);
                 Cell cell = row.getCell(1);
-                this.excelDatum = cell.getStringCellValue();
+                
+                // convert String dd-mm-yyyy naar String yyyy-mm-dd 
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                String excelDatum1 = cell.getStringCellValue();
+                Date date1 = new SimpleDateFormat("dd-MM-yyyy").parse(excelDatum1);  
+                this.excelDatum = formatter.format(date1);
+                
                 //Iterate through each rows one by one
                 rowIterator = sheet1.iterator();
             }
@@ -182,8 +198,14 @@ public class ImporteerExcelsheet {
                 ExcelSQL3.insertExcelStopt(datumStopzetting, redenStopzetting, intakeId);
                 
                 this.pakketAantal = getSQL.getPakketAantal(kaartnummer);
-               
-                excelSQL.insertVoedselpakket(this.excelDatum, this.pakketAantal, status, intakeId, uitgiftepunt);
+                
+                // Kan upgedate worden aan een knop voor een query aan status in de table voedselpakket wel of niet opgehaald
+                String status1 = null;
+                
+                String checkStatus = getSQL.getStatus(kaartnummer);
+                if(checkStatus.equals("Actief")){
+                    excelSQL.insertVoedselpakket(this.excelDatum, this.pakketAantal, status1, intakeId, uitgiftepunt);
+                }
                 
                 System.out.println("");
             }
