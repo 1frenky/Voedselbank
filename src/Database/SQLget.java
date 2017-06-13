@@ -39,26 +39,6 @@ public class SQLget extends Database {
         return verwijzersnr;
     }
 
-    public int getIntakeId(int kaartnummer) throws IOException {
-        int intakeID = 0;
-        String sql = "SELECT intakeID FROM `16102150`.intake JOIN `16102150`.client ON client = kaartnummer WHERE kaartnummer = ?";
-        try {
-            con = Database.getConnection();
-            ps = con.prepareStatement(sql);
-            ps.setInt(1, kaartnummer);
-            rs = ps.executeQuery();
-
-            while (rs.next()) {
-                intakeID = rs.getInt("intakeID");
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } catch (Exception e) {
-            e.getMessage();
-        }
-        return intakeID;
-    }
-
     public int getPakketAantal(int kaartnummer) {
         String pakketSoort = null;
         int pakketAantal = 0;
@@ -121,7 +101,7 @@ public class SQLget extends Database {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                kaartnummer = rs.getInt("kaartnummer");
+                kaartnummer = rs.getInt(1);
             }
          } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -133,7 +113,7 @@ public class SQLget extends Database {
 
     public int getCheckIntake(String intakeDatum, String startDatumUitgifte, String datumHerintake, int kaartnummer) {
         int check = 0;
-        String sql = "SELECT count(*) FROM client WHERE intakeDatum = ? AND startDatum = ? AND datumHerintake = ? AND client = ?";
+        String sql = "SELECT count(*) FROM intake WHERE intakeDatum = ? AND startDatum = ? AND datumHerintake = ? AND client = ?";
          try {
             con = Database.getConnection();
             ps = con.prepareStatement(sql);
@@ -154,7 +134,7 @@ public class SQLget extends Database {
         return check;
     }
 
-    public int getAantalPakket(String datum, int intakeId) {
+    public int getPakket(String datum, int intakeId) {
         int check = 0;
         String sql = "SELECT count(*) FROM voedselpakket WHERE datum = ? AND Intake = ?";
          try {
@@ -173,5 +153,45 @@ public class SQLget extends Database {
             e.getMessage();
         }
         return check;
+    }
+
+    public int getUitgiftepunt(String uitgiftepunt) {
+        int check = 0;
+        String sql = "SELECT count(*) FROM uitgiftepunt WHERE uitgifteNaam = ?";
+         try {
+            con = Database.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, uitgiftepunt);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                check = rs.getInt(1);
+            }
+         } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            e.getMessage();
+        }
+        return check;
+    }
+    
+    public int getIntakeId(int kaartnummer) throws IOException {
+        int intakeID = 0;
+        String sql = "SELECT intakeID FROM `16102150`.intake JOIN `16102150`.client ON client = kaartnummer WHERE kaartnummer = ?";
+        try {
+            con = Database.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, kaartnummer);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                intakeID = rs.getInt("intakeID");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            e.getMessage();
+        }
+        return intakeID;
     }
 }

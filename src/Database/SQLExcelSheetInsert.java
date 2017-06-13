@@ -150,9 +150,9 @@ public class SQLExcelSheetInsert extends Database {
     public void updateExcelClient(int kaartnummer, String naam, String naamPartner, String telefoonnummer, String email, String mobiel, 
             int aantalPersonen, int aantalPersonenInDeNorm, double gebruikInMaanden, String idSoort, String datumUitgifteId, String idNummer, 
             String plaatsUitgifteId, String adres, String postcode, String plaats, String status, String pakketSoort, int Verwijzernr) {
-        String sql = "UPDATE `16102150`.client SET kaartnummer = ?, naam = ?, naamPartner = ?, telefoonnummer = ?, email = ?, mobiel = ?, aantalPersonen = ?, "
+        String sql = "UPDATE `16102150`.client SET naam = ?, naamPartner = ?, telefoonnummer = ?, email = ?, mobiel = ?, aantalPersonen = ?, "
                 + "aantalPersonenInDeNorm = ?, gebruikInMaanden = ?, idSoort = ?, datumUitgifteId = ?, idNummer = ?, plaatsUitgifteId = ?, adres = ?, "
-                + "postcode = ?, plaats = ?, status = ?, pakketSoort = ?, Verwijzer = ? ";
+                + "postcode = ?, plaats = ?, status = ?, pakketSoort = ?, Verwijzer = ? WHERE kaartnummer = ?";
         
         try {
             con = Database.getConnection();
@@ -175,6 +175,7 @@ public class SQLExcelSheetInsert extends Database {
             ps.setString(16, status);
             ps.setString(17, pakketSoort);
             ps.setInt(18, Verwijzernr);
+            ps.setInt(19, kaartnummer);
             ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -182,4 +183,18 @@ public class SQLExcelSheetInsert extends Database {
             e.getMessage();
         }
     }
+
+        public void insertUitgiftepunt(String uitgiftepunt) {
+            String sql = "INSERT INTO `16102150`.uitgiftepunt(UitgifteNaam) VALUES(?)";
+            try {
+                con = Database.getConnection();
+                ps = con.prepareStatement(sql);
+                ps.setString(1, uitgiftepunt);
+                ps.executeUpdate();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            } catch (Exception e) {
+                e.getMessage();
+            }
+        }
 }

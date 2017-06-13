@@ -3,7 +3,6 @@ import Database.SQLExcelSheetInsert;
 import Database.SQLget;
 import java.io.File;
 import java.io.FileInputStream;
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
@@ -33,7 +32,7 @@ public class ImporteerExcelsheet {
     private String datumUitgifteId = null;
     private String excelDatum = null;
     private int pakketAantal = 0;
-
+    
     public ImporteerExcelsheet() {
     }
 
@@ -176,24 +175,27 @@ public class ImporteerExcelsheet {
                 // Losse query uit de tabel om bepaalde gegevens te krijgen om te controleren of die al bestaat of niet
                 int Verwijzer = getSQL.getVerwijzernr(verwijzerNaam, verwijzersDoorContactpersoon);
                 int checkKaartnr = getSQL.getCheckKaartnummer(kaartnummer);
-                int checkIntake = getSQL.getCheckIntake(intakeDatum, startDatumUitgifte, datumHerintake, kaartnummer);
-                int intakeId = getSQL.getIntakeId(kaartnummer);
-                int checkPakket = getSQL.getAantalPakket(this.excelDatum, intakeId);
-                String checkStatus = getSQL.getStatus(kaartnummer);
+                int checkUitgiftepunt = getSQL.getUitgiftepunt(uitgiftepunt);
 
                 if (Verwijzer == 0) {
                     excelSQL.insertExcelVerwijzer(verwijzerNaam, verwijzersDoorContactpersoon,
                             verwijzersDoorTelefoonnummer, verwijzersDoorEmail, verwijzersNaar, verwijzersNaarContactpersoon,
                             verwijzersNaarTelefoonnummer, verwijzersNaarEmail);
                 }
-
+                
+                if(checkUitgiftepunt == 0){
+                    excelSQL.insertUitgiftepunt(uitgiftepunt);
+                }
+                
+                /// Wanneer er geen kaartnummer is die bekend gaat die door naar insert
                 if (checkKaartnr == 0) {
-                    if (kaartnummer != 0) {
+                    // Wanneer kaartnummer alles behalve 0 is insert die
+                    if (kaartnummer > 0) {
                         excelSQL.insertExcelClient(kaartnummer, naam, naamPartner, telefoonnummer, email, mobiel,
                                 aantalPersonen, aantalPersonenInDeNorm, gebruikInMaanden, idSoort, this.datumUitgifteId, idNummer,
                                 plaatsUitgifteId, adres, postcode, plaats, status, pakketSoort, Verwijzer);
-                    } else {
-                        file.close();
+                    }else{
+                        break;
                     }
                 } else {
                     excelSQL.updateExcelClient(kaartnummer, naam, naamPartner, telefoonnummer, email, mobiel,
@@ -201,25 +203,31 @@ public class ImporteerExcelsheet {
                             plaatsUitgifteId, adres, postcode, plaats, status, pakketSoort, Verwijzer);
                 }
 
+                
+                int checkIntake = getSQL.getCheckIntake(intakeDatum, startDatumUitgifte, datumHerintake, kaartnummer);
+                
                 if (checkIntake == 0) {
-                    excelSQL.insertExcelIntake(intaker, intakeDatum, startDatumUitgifte, datumHerintake,
-                            kaartnummer, uitgiftepunt);
-
+                    excelSQL.insertExcelIntake(intaker, intakeDatum, startDatumUitgifte, datumHerintake,kaartnummer, uitgiftepunt);
+                    int intakeId = getSQL.getIntakeId(kaartnummer);
                     excelSQL.insertExcelStopt(datumStopzetting, redenStopzetting, intakeId);
                 }
-
+                
                 // Kan upgedate worden aan een knop voor een query aan status in de table voedselpakket wel of niet opgehaald
                 String status1 = null;
-
+                
+                String checkStatus = getSQL.getStatus(kaartnummer);
                 this.pakketAantal = getSQL.getPakketAantal(kaartnummer);
-
+                int intakeId = getSQL.getIntakeId(kaartnummer);
+                int checkPakket = getSQL.getPakket(this.excelDatum, intakeId);
+                
                 if (checkPakket == 0) {
-                    if (checkStatus.equals("Actief")) {
-                        excelSQL.insertVoedselpakket(this.excelDatum, this.pakketAantal, status1, intakeId, uitgiftepunt);
+                    if(checkStatus != null){
+                        if (checkStatus.equals("Actief")) {
+                            int intakeId2 = getSQL.getIntakeId(kaartnummer);
+                            excelSQL.insertVoedselpakket(this.excelDatum, this.pakketAantal, status1, intakeId2, uitgiftepunt);
+                        }
                     }
                 }
-
-                System.out.println("");
             }
             file.close();
         } catch (Exception e) {
