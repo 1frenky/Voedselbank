@@ -61,7 +61,7 @@ public class SQLExcelSheetInsert extends Database {
         String sql = "Insert into `16102150`.client(kaartnummer, naam, naamPartner, telefoonnummer, email, mobiel, aantalPersonen, aantalPersonenInDeNorm,"
                 + "gebruikInMaanden, idSoort, datumUitgifteId, idNummer, plaatsUitgifteId, adres, postcode, plaats, status, pakketSoort, Verwijzer) "
                 + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-
+        
         try {
             con = Database.getConnection();
             ps = con.prepareStatement(sql);
@@ -139,6 +139,42 @@ public class SQLExcelSheetInsert extends Database {
             ps.setString(3, status);
             ps.setInt(4, intakeId);
             ps.setString(5, uitgiftepunt);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            e.getMessage();
+        }
+    }
+
+    public void updateExcelClient(int kaartnummer, String naam, String naamPartner, String telefoonnummer, String email, String mobiel, 
+            int aantalPersonen, int aantalPersonenInDeNorm, double gebruikInMaanden, String idSoort, String datumUitgifteId, String idNummer, 
+            String plaatsUitgifteId, String adres, String postcode, String plaats, String status, String pakketSoort, int Verwijzernr) {
+        String sql = "UPDATE `16102150`.client SET kaartnummer = ?, naam = ?, naamPartner = ?, telefoonnummer = ?, email = ?, mobiel = ?, aantalPersonen = ?, "
+                + "aantalPersonenInDeNorm = ?, gebruikInMaanden = ?, idSoort = ?, datumUitgifteId = ?, idNummer = ?, plaatsUitgifteId = ?, adres = ?, "
+                + "postcode = ?, plaats = ?, status = ?, pakketSoort = ?, Verwijzer = ? ";
+        
+        try {
+            con = Database.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, naam);
+            ps.setString(2, naamPartner);
+            ps.setString(3, telefoonnummer);
+            ps.setString(4, email);
+            ps.setString(5, mobiel);
+            ps.setInt(6, aantalPersonen);
+            ps.setInt(7, aantalPersonenInDeNorm);
+            ps.setDouble(8, gebruikInMaanden);
+            ps.setString(9, idSoort);
+            ps.setString(10, datumUitgifteId);
+            ps.setString(11, idNummer);
+            ps.setString(12, plaatsUitgifteId);
+            ps.setString(13, adres);
+            ps.setString(14, postcode);
+            ps.setString(15, plaats);
+            ps.setString(16, status);
+            ps.setString(17, pakketSoort);
+            ps.setInt(18, Verwijzernr);
             ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());

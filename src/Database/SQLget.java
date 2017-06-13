@@ -111,4 +111,67 @@ public class SQLget extends Database {
         }
         return status;
     }
+    
+    public int getCheckKaartnummer(int kaartnummer) throws SQLException, IOException{
+        String sql = "SELECT count(kaartnummer) FROM client WHERE kaartnummer = ?";
+         try {
+            con = Database.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, kaartnummer);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                kaartnummer = rs.getInt("kaartnummer");
+            }
+         } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            e.getMessage();
+        }
+        return kaartnummer;
+    } 
+
+    public int getCheckIntake(String intakeDatum, String startDatumUitgifte, String datumHerintake, int kaartnummer) {
+        int check = 0;
+        String sql = "SELECT count(*) FROM client WHERE intakeDatum = ? AND startDatum = ? AND datumHerintake = ? AND client = ?";
+         try {
+            con = Database.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, intakeDatum);
+            ps.setString(2, startDatumUitgifte);
+            ps.setString(3, datumHerintake);
+            ps.setInt(4, kaartnummer);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                check = rs.getInt(1);
+            }
+         } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            e.getMessage();
+        }
+        return check;
+    }
+
+    public int getAantalPakket(String datum, int intakeId) {
+        int check = 0;
+        String sql = "SELECT count(*) FROM voedselpakket WHERE datum = ? AND Intake = ?";
+         try {
+            con = Database.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, datum);
+            ps.setInt(2, intakeId);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                check = rs.getInt(1);
+            }
+         } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            e.getMessage();
+        }
+        return check;
+    }
 }
