@@ -44,6 +44,7 @@ public class Main extends javax.swing.JFrame {
         btnExitIntake = new javax.swing.JButton();
         jpProductie = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        btnPDFmaker = new javax.swing.JButton();
         jpUitgift = new javax.swing.JPanel();
         btnExitUitgitfte = new javax.swing.JButton();
         jpClient = new javax.swing.JPanel();
@@ -171,19 +172,30 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        btnPDFmaker.setText("Genereer PDF");
+        btnPDFmaker.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPDFmakerActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jpProductieLayout = new javax.swing.GroupLayout(jpProductie);
         jpProductie.setLayout(jpProductieLayout);
         jpProductieLayout.setHorizontalGroup(
             jpProductieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpProductieLayout.createSequentialGroup()
-                .addContainerGap(642, Short.MAX_VALUE)
-                .addComponent(jButton1)
+            .addGroup(jpProductieLayout.createSequentialGroup()
+                .addContainerGap(585, Short.MAX_VALUE)
+                .addGroup(jpProductieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnPDFmaker, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         jpProductieLayout.setVerticalGroup(
             jpProductieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpProductieLayout.createSequentialGroup()
-                .addContainerGap(661, Short.MAX_VALUE)
+                .addContainerGap(485, Short.MAX_VALUE)
+                .addComponent(btnPDFmaker)
+                .addGap(144, 144, 144)
                 .addComponent(jButton1)
                 .addContainerGap())
         );
@@ -322,6 +334,11 @@ public class Main extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void btnPDFmakerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPDFmakerActionPerformed
+        PDFmaker pdf = new PDFmaker();
+        JOptionPane.showMessageDialog(null, "PDF gegenereert. Kijk in uw map Documenten om hem te zien");
+    }//GEN-LAST:event_btnPDFmakerActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -365,6 +382,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton btnExitManage;
     private javax.swing.JButton btnExitUitgitfte;
     private javax.swing.JButton btnImportExcel;
+    private javax.swing.JButton btnPDFmaker;
     private javax.swing.JButton btnZoekExcel;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jpClient;

@@ -32,7 +32,7 @@ public class ImporteerExcelsheet {
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
     
     private String datumUitgifteId = null;
-    public String excelDatum = null;
+    private String excelDatum = null;
     private int pakketAantal = 0;
     
     public ImporteerExcelsheet() {
@@ -65,7 +65,7 @@ public class ImporteerExcelsheet {
                 String excelDatum1 = cell.getStringCellValue();
                 Date date = new SimpleDateFormat("dd-MM-yyyy").parse(excelDatum1);
                 this.excelDatum = this.formatter.format(date);
-
+                
                 //Iterate through each rows one by one
                 rowIterator = sheet1.iterator();
             }
