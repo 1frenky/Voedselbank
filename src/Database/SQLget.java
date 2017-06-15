@@ -7,6 +7,7 @@ package Database;
 
 import static Database.Database.con;
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -193,5 +194,22 @@ public class SQLget extends Database {
             e.getMessage();
         }
         return intakeID;
+    }
+    
+     public ResultSet getProductielijst(String date) throws IOException {
+        String sql = "SELECT Uitgiftepunt, sum(aantalPakketten) Pakketten FROM voedselpakket, uitgiftepunt "
+                + "WHERE Uitgiftepunt = uitgifteNaam AND datum = ? GROUP BY uitgifteNaam order by volgordeLijst ASC";
+        try {
+            con = Database.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, date);
+            rs = ps.executeQuery();
+
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            e.getMessage();
+        }
+        return rs;
     }
 }

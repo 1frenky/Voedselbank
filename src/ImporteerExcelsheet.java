@@ -29,8 +29,10 @@ public class ImporteerExcelsheet {
     HSSFSheet sheet1;
     Iterator<Row> rowIterator;
 
+    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+    
     private String datumUitgifteId = null;
-    private String excelDatum = null;
+    public String excelDatum = null;
     private int pakketAantal = 0;
     
     public ImporteerExcelsheet() {
@@ -46,11 +48,10 @@ public class ImporteerExcelsheet {
                 Row row = sheet.getRow(3);
                 Cell cell = row.getCell(1);
 
-                // convert String dd-mm-yyyy naar String yyyy-mm-dd 
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                // convert String dd-mm-yyyy naar Date yyyy-mm-dd 
                 String excelDatum1 = cell.getStringCellValue();
-                Date date1 = new SimpleDateFormat("dd-MM-yyyy").parse(excelDatum1);
-                this.excelDatum = formatter.format(date1);
+                Date date = new SimpleDateFormat("dd-MM-yyyy").parse(excelDatum1);
+                this.excelDatum = this.formatter.format(date);
 
                 //Iterate through each rows one by one
                 rowIterator = sheet.iterator();
@@ -60,11 +61,10 @@ public class ImporteerExcelsheet {
                 Row row = sheet1.getRow(3);
                 Cell cell = row.getCell(1);
 
-                // convert String dd-mm-yyyy naar String yyyy-mm-dd 
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                // convert String dd-mm-yyyy naar Date yyyy-mm-dd 
                 String excelDatum1 = cell.getStringCellValue();
-                Date date1 = new SimpleDateFormat("dd-MM-yyyy").parse(excelDatum1);
-                this.excelDatum = formatter.format(date1);
+                Date date = new SimpleDateFormat("dd-MM-yyyy").parse(excelDatum1);
+                this.excelDatum = this.formatter.format(date);
 
                 //Iterate through each rows one by one
                 rowIterator = sheet1.iterator();
@@ -116,7 +116,7 @@ public class ImporteerExcelsheet {
                     this.datumUitgifteId = null;
                 } else {
                     Date datumUitgifteId2 = DateUtil.getJavaDate((double) datumUitgifteId1);
-                    this.datumUitgifteId = new SimpleDateFormat("yyyy/MM/dd").format(datumUitgifteId2);
+                    this.datumUitgifteId = new SimpleDateFormat("yyyy-MM-dd").format(datumUitgifteId2);
                 }
                 ////////////////////////////////////////////////////////////////////////////////////
                 String idNummer = row.getCell(11).getStringCellValue();
@@ -132,23 +132,23 @@ public class ImporteerExcelsheet {
                 double intakeDatum1 = row.getCell(18).getNumericCellValue();
                 //convert excel double naar datum
                 Date intakeDatum2 = DateUtil.getJavaDate((double) intakeDatum1);
-                String intakeDatum = new SimpleDateFormat("yyyy/MM/dd").format(intakeDatum2);
+                String intakeDatum = new SimpleDateFormat("yyyy-MM-dd").format(intakeDatum2);
                 /////////////////////////////////////////////////////////////////////////
                 double startDatumUitgifte1 = row.getCell(19).getNumericCellValue();
                 //convert excel double naar datum
                 Date startDatumUitgifte2 = DateUtil.getJavaDate((double) startDatumUitgifte1);
-                String startDatumUitgifte = new SimpleDateFormat("yyyy/MM/dd").format(startDatumUitgifte2);
+                String startDatumUitgifte = new SimpleDateFormat("yyyy-MM-dd").format(startDatumUitgifte2);
                 //////////////////////////////////////////////////////////////////////////////////
                 double datumHerintake1 = row.getCell(20).getNumericCellValue();
                 //convert excel double naar datum
                 Date datumHerintake2 = DateUtil.getJavaDate((double) datumHerintake1);
-                String datumHerintake = new SimpleDateFormat("yyyy/MM/dd").format(datumHerintake2);
+                String datumHerintake = new SimpleDateFormat("yyyy-MM-dd").format(datumHerintake2);
                 /////////////////////////////////////////////////////////////////////////////////
                 // Tabel Stopt
                 double datumStopzetting1 = row.getCell(21).getNumericCellValue();
                 //convert excel numbers naar datum
                 Date datumStopzetting2 = DateUtil.getJavaDate((double) datumStopzetting1);
-                String datumStopzetting = new SimpleDateFormat("yyyy/MM/dd").format(datumStopzetting2);
+                String datumStopzetting = new SimpleDateFormat("yyyy-MM-dd").format(datumStopzetting2);
                 //////////////////////////////////////////////////////////////////////////////////////
                 String redenStopzetting = row.getCell(22).getStringCellValue();
 
@@ -187,20 +187,22 @@ public class ImporteerExcelsheet {
                     excelSQL.insertUitgiftepunt(uitgiftepunt);
                 }
                 
+                 int Verwijzer2 = getSQL.getVerwijzernr(verwijzerNaam, verwijzersDoorContactpersoon);
+                
                 /// Wanneer er geen kaartnummer is die bekend gaat die door naar insert
                 if (checkKaartnr == 0) {
                     // Wanneer kaartnummer alles behalve 0 is insert die
                     if (kaartnummer > 0) {
                         excelSQL.insertExcelClient(kaartnummer, naam, naamPartner, telefoonnummer, email, mobiel,
                                 aantalPersonen, aantalPersonenInDeNorm, gebruikInMaanden, idSoort, this.datumUitgifteId, idNummer,
-                                plaatsUitgifteId, adres, postcode, plaats, status, pakketSoort, Verwijzer);
+                                plaatsUitgifteId, adres, postcode, plaats, status, pakketSoort, Verwijzer2);
                     }else{
                         break;
                     }
                 } else {
                     excelSQL.updateExcelClient(kaartnummer, naam, naamPartner, telefoonnummer, email, mobiel,
                             aantalPersonen, aantalPersonenInDeNorm, gebruikInMaanden, idSoort, this.datumUitgifteId, idNummer,
-                            plaatsUitgifteId, adres, postcode, plaats, status, pakketSoort, Verwijzer);
+                            plaatsUitgifteId, adres, postcode, plaats, status, pakketSoort, Verwijzer2);
                 }
 
                 
