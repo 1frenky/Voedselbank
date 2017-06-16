@@ -26,7 +26,6 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.io.FileNotFoundException;
 import java.sql.ResultSet;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 
 /**
@@ -35,7 +34,7 @@ import javax.swing.JOptionPane;
  */
 public class PDFmaker {
     public static String FILE = "C:/Users/";
-    public static String FILE2 = "/Documents/Productielijst.pdf";
+    public static String FILE2 = "/Documents/Productielijst " + LocalDate.now() +".pdf";
     
     private static Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
             Font.BOLD);
@@ -45,8 +44,6 @@ public class PDFmaker {
             Font.BOLD);
     private static Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12,
             Font.BOLD);
-    
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     
     public PDFmaker()   {
         try{
@@ -58,7 +55,7 @@ public class PDFmaker {
             addContent(document);
             document.close();
         }catch(FileNotFoundException e){
-            JOptionPane.showMessageDialog(null, "Sluit eerst uw geopende pdf voordat u een pdf genereert");
+            JOptionPane.showMessageDialog(null, "Sluit eerst uw geopende pdf voordat u een pdf gegenereerd");
         }  
         catch (Exception e) {
             e.printStackTrace();
@@ -110,7 +107,7 @@ public class PDFmaker {
 
         // Second parameter is the number of the chapter
         Chapter catPart = new Chapter(new Paragraph(anchor), 0);
-        catPart.add(new Paragraph("Productielijst gegenereert door: " + System.getProperty("user.name") + ", " + LocalDate.now(), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+        catPart.add(new Paragraph("Productielijst gegenereerd door: " + System.getProperty("user.name") + ", " + LocalDate.now(), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                 smallBold));
 //        Paragraph subPara = new Paragraph("Subcategory 1", subFont);
 //        Section subCatPart = catPart.addSection(subPara);
@@ -173,7 +170,7 @@ public class PDFmaker {
         
         try{
             SQLget sql = new SQLget();
-            ResultSet rs = sql.getProductielijst("2017-03-23");
+            ResultSet rs = sql.getProductielijst();
             while(rs.next()){
                 String uitgiftepunt = rs.getString("Uitgiftepunt");
                 int aantalPakketten = rs.getInt("Pakketten");

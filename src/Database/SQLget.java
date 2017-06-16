@@ -196,13 +196,11 @@ public class SQLget extends Database {
         return intakeID;
     }
     
-     public ResultSet getProductielijst(String date) throws IOException {
-        String sql = "SELECT Uitgiftepunt, sum(aantalPakketten) Pakketten FROM voedselpakket, uitgiftepunt "
-                + "WHERE Uitgiftepunt = uitgifteNaam AND datum = ? GROUP BY uitgifteNaam order by volgordeLijst ASC";
+     public ResultSet getProductielijst() throws IOException {
+        String sql = "SELECT Uitgiftepunt, sum(aantalPakketten) Pakketten FROM voedselpakket, uitgiftepunt WHERE Uitgiftepunt = uitgifteNaam AND datum IN (SELECT MAX(datum) from voedselpakket) GROUP BY uitgifteNaam order by volgordeLijst ASC;";
         try {
             con = Database.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setString(1, date);
             rs = ps.executeQuery();
 
         }catch (SQLException e) {

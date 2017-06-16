@@ -48,11 +48,17 @@ public class ImporteerExcelsheet {
                 Row row = sheet.getRow(3);
                 Cell cell = row.getCell(1);
 
+                try{
                 // convert String dd-mm-yyyy naar Date yyyy-mm-dd 
                 String excelDatum1 = cell.getStringCellValue();
                 Date date = new SimpleDateFormat("dd-MM-yyyy").parse(excelDatum1);
                 this.excelDatum = this.formatter.format(date);
-
+                }catch(Exception e){
+                    double date1 = cell.getNumericCellValue();
+                    //convert excel double naar datum
+                    Date date2 = DateUtil.getJavaDate((double) date1);
+                    this.excelDatum = new SimpleDateFormat("yyyy-MM-dd").format(date2);
+                }
                 //Iterate through each rows one by one
                 rowIterator = sheet.iterator();
             } else {
@@ -62,10 +68,16 @@ public class ImporteerExcelsheet {
                 Cell cell = row.getCell(1);
 
                 // convert String dd-mm-yyyy naar Date yyyy-mm-dd 
+                try{
                 String excelDatum1 = cell.getStringCellValue();
                 Date date = new SimpleDateFormat("dd-MM-yyyy").parse(excelDatum1);
                 this.excelDatum = this.formatter.format(date);
-                
+                }catch(Exception e){
+                    double date1 = cell.getNumericCellValue();
+                    //convert excel double naar datum
+                    Date date2 = DateUtil.getJavaDate((double) date1);
+                    this.excelDatum = new SimpleDateFormat("yyyy-MM-dd").format(date2);
+                }
                 //Iterate through each rows one by one
                 rowIterator = sheet1.iterator();
             }
