@@ -210,4 +210,24 @@ public class SQLget extends Database {
         }
         return rs;
     }
+     
+     public int getCheckVolgordeLijst() throws IOException {
+        String sql = "SELECT MAX(volgordeLijst) as volgordeLijst FROM uitgiftepunt";
+        int volgorde = 0;
+        try {
+            con = Database.getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+             while (rs.next()) {
+                volgorde = rs.getInt("volgordeLijst");
+            }
+           
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            e.getMessage();
+        }
+        return volgorde;
+    }
+     
 }

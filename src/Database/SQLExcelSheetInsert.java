@@ -184,12 +184,14 @@ public class SQLExcelSheetInsert extends Database {
         }
     }
 
-        public void insertUitgiftepunt(String uitgiftepunt) {
-            String sql = "INSERT INTO `16102150`.uitgiftepunt(UitgifteNaam) VALUES(?)";
+        public void insertUitgiftepunt(String uitgiftepunt, int volgorde) {
+            int count = volgorde + 1;
+            String sql = "INSERT INTO `16102150`.uitgiftepunt(uitgifteNaam, volgordeLijst) VALUES(?, ?)";
             try {
                 con = Database.getConnection();
                 ps = con.prepareStatement(sql);
                 ps.setString(1, uitgiftepunt);
+                ps.setInt(2, count);
                 ps.executeUpdate();
             } catch (SQLException e) {
                 System.out.println(e.getMessage());

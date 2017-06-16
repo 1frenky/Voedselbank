@@ -166,7 +166,8 @@ public class ImporteerExcelsheet {
 
                 // Tabel verwijzer
                 String verwijzerNaam = row.getCell(23).getStringCellValue();
-                String verwijzersDoorContactpersoon = row.getCell(24).getStringCellValue();
+                String verwijzersDoorContactpersoon1 = row.getCell(24).getStringCellValue();
+                String verwijzersDoorContactpersoon = verwijzersDoorContactpersoon1.toLowerCase();
                 String verwijzersDoorTelefoonnummer = row.getCell(25).getStringCellValue();
                 String verwijzersDoorEmail = row.getCell(26).getStringCellValue();
                 String verwijzersNaar = row.getCell(27).getStringCellValue();
@@ -194,9 +195,10 @@ public class ImporteerExcelsheet {
                             verwijzersDoorTelefoonnummer, verwijzersDoorEmail, verwijzersNaar, verwijzersNaarContactpersoon,
                             verwijzersNaarTelefoonnummer, verwijzersNaarEmail);
                 }
-                
+               
                 if(checkUitgiftepunt == 0){
-                    excelSQL.insertUitgiftepunt(uitgiftepunt);
+                    int maxVolgorde = getSQL.getCheckVolgordeLijst();
+                    excelSQL.insertUitgiftepunt(uitgiftepunt, maxVolgorde);
                 }
                 
                  int Verwijzer2 = getSQL.getVerwijzernr(verwijzerNaam, verwijzersDoorContactpersoon);

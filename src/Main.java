@@ -1,6 +1,22 @@
 
+import Database.Database;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.print.PrinterException;
 import java.io.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.text.BadLocationException;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -18,9 +34,54 @@ public class Main extends javax.swing.JFrame {
      */
     private String filePath = null;
 
-    public Main() {
+    private String filenaam = null;
+//    private uitgiftepunt uit;
+    private Database data;
+    private Connection conn = null;
+    private ResultSet rs = null;
+    private SQLuitgiftepunt sql;
+    PreparedStatement statement = null;
+
+    public Main() throws SQLException, IOException {
         initComponents();
         this.setLocationRelativeTo(null);
+
+        conn = data.getConnection();
+
+        getDatum();
+        showTime();
+        //DisplayTabel();
+        SQLuitgiftepunt sql = new SQLuitgiftepunt();
+        sql.WeergevenGegevensUitgifte();
+        
+         SQLuitgiftepunt.WeergevenGegevensUitgifte();
+        SQLclientOverzicht.WeergevenGegevensClient();
+        SQLmanagement.WeergevenGegevensManage();
+        SQLproductielijst.WeergevenGegevensProd();
+                    SQLproductielijst.OphalenLocatie();
+                    SQLproductielijst.OphalenUitgitenaam();
+    }
+
+    public void getDatum() {
+
+        java.util.Date d = new java.util.Date();
+        SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
+
+        jDatum.setText("Datum: \t" + s.format(d));
+
+    }
+
+    public void showTime() {
+        new Timer(0, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Date d = new Date();
+                SimpleDateFormat s = new SimpleDateFormat("hh:MM:ss a");
+
+                jTime.setText("Tijd: " + s.format(d));
+            }
+        }).start();
+
     }
 
     /**
@@ -35,24 +96,57 @@ public class Main extends javax.swing.JFrame {
         jtpGeheel = new javax.swing.JTabbedPane();
         jpMain = new javax.swing.JPanel();
         MainLabelWelkom = new java.awt.Label();
+        jDatum = new javax.swing.JLabel();
+        jTime = new javax.swing.JLabel();
+        btnLogOut = new javax.swing.JButton();
         btnExitMain = new javax.swing.JButton();
+        btnMessage = new javax.swing.JLabel();
+        jpProductie = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        btnPDFmaker = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblProdLijst = new javax.swing.JTable();
+        jLabel5 = new javax.swing.JLabel();
+        btnProdVerplaatsen = new javax.swing.JButton();
+        jtxtProdVolgorde = new javax.swing.JTextField();
+        jlblProdNaam = new javax.swing.JLabel();
+        btnMessage2 = new javax.swing.JLabel();
         jpIntake = new javax.swing.JPanel();
         btnImportExcel = new javax.swing.JButton();
         btnZoekExcel = new javax.swing.JButton();
         lblPath = new javax.swing.JLabel();
         lblMessage = new javax.swing.JLabel();
         btnExitIntake = new javax.swing.JButton();
-        jpProductie = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        btnPDFmaker = new javax.swing.JButton();
-        jpUitgift = new javax.swing.JPanel();
-        btnExitUitgitfte = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblUitgiftepunt = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
         jpClient = new javax.swing.JPanel();
         btnExitClient = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tblClientGegevens = new javax.swing.JTable();
         jpManage = new javax.swing.JPanel();
         btnExitManage = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblManageInfo = new javax.swing.JTable();
+        jpUitgift = new javax.swing.JPanel();
+        btnExitUitgitfte = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        btnUitgifteToevoegen = new javax.swing.JButton();
+        btnUitgifteAanpassen = new javax.swing.JButton();
+        btnUitgifteVerwijderen = new javax.swing.JButton();
+        jUitgifteField = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jVolgordeLijst = new javax.swing.JTextField();
+        jAdresField = new javax.swing.JTextField();
+        jAantalField = new javax.swing.JTextField();
+        jPlaatsField = new javax.swing.JTextField();
+        jMaxCapaciteitField = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblUitgifteLijst = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Database app Voedselbank");
@@ -63,6 +157,20 @@ public class Main extends javax.swing.JFrame {
         MainLabelWelkom.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         MainLabelWelkom.setText("Welkom bij de Voedselbank applicatie.");
 
+        jDatum.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jDatum.setText("jLabel7");
+
+        jTime.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jTime.setText("jLabel8");
+
+        btnLogOut.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        btnLogOut.setText("uitloggen");
+        btnLogOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogOutActionPerformed(evt);
+            }
+        });
+
         btnExitMain.setText("Exit");
         btnExitMain.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -70,30 +178,164 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        btnMessage.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+
         javax.swing.GroupLayout jpMainLayout = new javax.swing.GroupLayout(jpMain);
         jpMain.setLayout(jpMainLayout);
         jpMainLayout.setHorizontalGroup(
             jpMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpMainLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnLogOut)
+                .addGap(53, 53, 53))
             .addGroup(jpMainLayout.createSequentialGroup()
                 .addGap(233, 233, 233)
                 .addComponent(MainLabelWelkom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(244, Short.MAX_VALUE))
+                .addContainerGap(553, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpMainLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnExitMain)
-                .addContainerGap())
+                .addComponent(btnMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37)
+                .addComponent(jDatum, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
+                .addComponent(jTime, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 328, Short.MAX_VALUE)
+                .addComponent(btnExitMain, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jpMainLayout.setVerticalGroup(
             jpMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpMainLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(MainLabelWelkom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 631, Short.MAX_VALUE)
-                .addComponent(btnExitMain)
-                .addContainerGap())
+                .addGap(21, 21, 21)
+                .addComponent(btnLogOut)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 350, Short.MAX_VALUE)
+                .addGroup(jpMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnExitMain, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jDatum)
+                    .addComponent(btnMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTime))
+                .addGap(108, 108, 108))
         );
 
         jtpGeheel.addTab("Main menu", jpMain);
+
+        jpProductie.setEnabled(false);
+
+        jButton1.setText("Exit");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        btnPDFmaker.setText("Genereer PDF");
+        btnPDFmaker.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPDFmakerActionPerformed(evt);
+            }
+        });
+
+        tblProdLijst.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblProdLijst.getTableHeader().setReorderingAllowed(false);
+        Main.tblProdLijst.setDragEnabled(true);
+        Main.tblProdLijst.setDropMode(DropMode.INSERT_ROWS);
+        jScrollPane2.setViewportView(tblProdLijst);
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel5.setText("De productielijst in tabelvorm.");
+
+        btnProdVerplaatsen.setText("Verplaatsen");
+        btnProdVerplaatsen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProdVerplaatsenActionPerformed(evt);
+            }
+        });
+
+        jtxtProdVolgorde.setToolTipText("Vul locatie in");
+        jtxtProdVolgorde.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtProdVolgordeKeyPressed(evt);
+            }
+        });
+
+        jlblProdNaam.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jlblProdNaam.setText("Uitgiftepunt:");
+
+        btnMessage2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+
+        javax.swing.GroupLayout jpProductieLayout = new javax.swing.GroupLayout(jpProductie);
+        jpProductie.setLayout(jpProductieLayout);
+        jpProductieLayout.setHorizontalGroup(
+            jpProductieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpProductieLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jpProductieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpProductieLayout.createSequentialGroup()
+                        .addGroup(jpProductieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnMessage2, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(740, Short.MAX_VALUE))
+                    .addGroup(jpProductieLayout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 714, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jpProductieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jpProductieLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
+                                .addComponent(btnPDFmaker)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton1)
+                                .addGap(23, 23, 23))
+                            .addGroup(jpProductieLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jpProductieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jlblProdNaam, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jtxtProdVolgorde)
+                                    .addComponent(btnProdVerplaatsen, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+        );
+        jpProductieLayout.setVerticalGroup(
+            jpProductieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpProductieLayout.createSequentialGroup()
+                .addGap(83, 83, 83)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jpProductieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpProductieLayout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(395, 395, 395)
+                        .addGroup(jpProductieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton1)
+                            .addComponent(btnPDFmaker))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnMessage2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21))
+                    .addGroup(jpProductieLayout.createSequentialGroup()
+                        .addComponent(jlblProdNaam)
+                        .addGap(29, 29, 29)
+                        .addComponent(jtxtProdVolgorde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnProdVerplaatsen, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+        );
+
+        jtpGeheel.addTab("Productielijst", jpProductie);
 
         jpIntake.setMaximumSize(new java.awt.Dimension(699, 699));
         jpIntake.setMinimumSize(new java.awt.Dimension(699, 699));
@@ -124,140 +366,57 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel1.setText("Controleer hieronder of u het juiste bestand heeft geopend.");
+
         javax.swing.GroupLayout jpIntakeLayout = new javax.swing.GroupLayout(jpIntake);
         jpIntake.setLayout(jpIntakeLayout);
         jpIntakeLayout.setHorizontalGroup(
             jpIntakeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpIntakeLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnExitIntake)
-                .addContainerGap())
-            .addGroup(jpIntakeLayout.createSequentialGroup()
-                .addGroup(jpIntakeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblPath, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jpIntakeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jpIntakeLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(95, 95, 95)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jpIntakeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnImportExcel)
-                    .addComponent(btnZoekExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnExitIntake))
+                    .addGroup(jpIntakeLayout.createSequentialGroup()
+                        .addGroup(jpIntakeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jpIntakeLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jpIntakeLayout.createSequentialGroup()
+                                .addComponent(lblPath, javax.swing.GroupLayout.DEFAULT_SIZE, 782, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addGroup(jpIntakeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnImportExcel)
+                            .addComponent(btnZoekExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(68, 68, 68))
+            .addGroup(jpIntakeLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpIntakeLayout.setVerticalGroup(
             jpIntakeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpIntakeLayout.createSequentialGroup()
-                .addGap(44, 44, 44)
+                .addGap(22, 22, 22)
                 .addComponent(lblMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblPath, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 467, Short.MAX_VALUE)
-                .addComponent(btnExitIntake)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jpIntakeLayout.createSequentialGroup()
                 .addGap(107, 107, 107)
                 .addComponent(btnZoekExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnImportExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 174, Short.MAX_VALUE)
+                .addComponent(btnExitIntake)
+                .addGap(151, 151, 151))
         );
 
         jtpGeheel.addTab("Toevoegen Intakelijst", jpIntake);
-
-        jButton1.setText("Exit");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        btnPDFmaker.setText("Genereer PDF");
-        btnPDFmaker.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPDFmakerActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jpProductieLayout = new javax.swing.GroupLayout(jpProductie);
-        jpProductie.setLayout(jpProductieLayout);
-        jpProductieLayout.setHorizontalGroup(
-            jpProductieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpProductieLayout.createSequentialGroup()
-                .addContainerGap(585, Short.MAX_VALUE)
-                .addGroup(jpProductieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnPDFmaker, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap())
-        );
-        jpProductieLayout.setVerticalGroup(
-            jpProductieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpProductieLayout.createSequentialGroup()
-                .addContainerGap(485, Short.MAX_VALUE)
-                .addComponent(btnPDFmaker)
-                .addGap(144, 144, 144)
-                .addComponent(jButton1)
-                .addContainerGap())
-        );
-
-        jtpGeheel.addTab("Productielijst", jpProductie);
-
-        btnExitUitgitfte.setText("Exit");
-        btnExitUitgitfte.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExitUitgitfteActionPerformed(evt);
-            }
-        });
-
-        tblUitgiftepunt.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "Uitgiftepunt", "Adres", "Plaats", "Aantal mensen", "Max Capaciteit", "Volgorde"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(tblUitgiftepunt);
-        if (tblUitgiftepunt.getColumnModel().getColumnCount() > 0) {
-            tblUitgiftepunt.getColumnModel().getColumn(0).setResizable(false);
-            tblUitgiftepunt.getColumnModel().getColumn(5).setResizable(false);
-        }
-
-        javax.swing.GroupLayout jpUitgiftLayout = new javax.swing.GroupLayout(jpUitgift);
-        jpUitgift.setLayout(jpUitgiftLayout);
-        jpUitgiftLayout.setHorizontalGroup(
-            jpUitgiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpUitgiftLayout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 537, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
-                .addComponent(btnExitUitgitfte)
-                .addContainerGap())
-        );
-        jpUitgiftLayout.setVerticalGroup(
-            jpUitgiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpUitgiftLayout.createSequentialGroup()
-                .addGroup(jpUitgiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpUitgiftLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnExitUitgitfte))
-                    .addGroup(jpUitgiftLayout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 634, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-
-        jtpGeheel.addTab("Uitgiftepunten", jpUitgift);
 
         btnExitClient.setText("Exit");
         btnExitClient.addActionListener(new java.awt.event.ActionListener() {
@@ -266,21 +425,51 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel4.setText("Alle clïenten worden hieronder weergegeven.");
+
+        tblClientGegevens.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tblClientGegevens.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        tblClientGegevens.getTableHeader().setReorderingAllowed(false);
+        jScrollPane5.setViewportView(tblClientGegevens);
+
         javax.swing.GroupLayout jpClientLayout = new javax.swing.GroupLayout(jpClient);
         jpClient.setLayout(jpClientLayout);
         jpClientLayout.setHorizontalGroup(
             jpClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpClientLayout.createSequentialGroup()
-                .addContainerGap(642, Short.MAX_VALUE)
-                .addComponent(btnExitClient)
-                .addContainerGap())
+            .addGroup(jpClientLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(jpClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpClientLayout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addContainerGap(702, Short.MAX_VALUE))
+                    .addGroup(jpClientLayout.createSequentialGroup()
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 864, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnExitClient)
+                        .addGap(16, 16, 16))))
         );
         jpClientLayout.setVerticalGroup(
             jpClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpClientLayout.createSequentialGroup()
-                .addContainerGap(661, Short.MAX_VALUE)
-                .addComponent(btnExitClient)
-                .addContainerGap())
+            .addGroup(jpClientLayout.createSequentialGroup()
+                .addGap(49, 49, 49)
+                .addGroup(jpClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnExitClient)
+                    .addGroup(jpClientLayout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         jtpGeheel.addTab("Cliënt overzicht", jpClient);
@@ -292,24 +481,257 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        tblManageInfo.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tblManageInfo);
+
         javax.swing.GroupLayout jpManageLayout = new javax.swing.GroupLayout(jpManage);
         jpManage.setLayout(jpManageLayout);
         jpManageLayout.setHorizontalGroup(
             jpManageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpManageLayout.createSequentialGroup()
-                .addContainerGap(642, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 617, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(92, 92, 92)
                 .addComponent(btnExitManage)
-                .addContainerGap())
+                .addContainerGap(248, Short.MAX_VALUE))
         );
         jpManageLayout.setVerticalGroup(
             jpManageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpManageLayout.createSequentialGroup()
-                .addContainerGap(661, Short.MAX_VALUE)
+            .addGroup(jpManageLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnExitManage)
-                .addContainerGap())
+                .addGap(100, 100, 100))
+            .addGroup(jpManageLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(108, Short.MAX_VALUE))
         );
 
         jtpGeheel.addTab("Management informatie", jpManage);
+
+        btnExitUitgitfte.setText("Exit");
+        btnExitUitgitfte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExitUitgitfteActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel2.setText("Lijst met uitgiftepunten.");
+
+        btnUitgifteToevoegen.setText("Toevoegen");
+        btnUitgifteToevoegen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUitgifteToevoegenActionPerformed(evt);
+            }
+        });
+
+        btnUitgifteAanpassen.setText("Update");
+        btnUitgifteAanpassen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUitgifteAanpassenActionPerformed(evt);
+            }
+        });
+
+        btnUitgifteVerwijderen.setText("Verwijderen");
+        btnUitgifteVerwijderen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUitgifteVerwijderenActionPerformed(evt);
+            }
+        });
+
+        jUitgifteField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jUitgifteFieldActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel6.setText("Uitgiftenaam");
+
+        jLabel7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel7.setText("Adres");
+
+        jLabel8.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel8.setText("Aantal Mensen");
+
+        jLabel9.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel9.setText("Plaats");
+
+        jLabel10.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel10.setText("VolgordeLijst");
+
+        jVolgordeLijst.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jVolgordeLijstActionPerformed(evt);
+            }
+        });
+
+        jAdresField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jAdresFieldActionPerformed(evt);
+            }
+        });
+
+        jAantalField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jAantalFieldActionPerformed(evt);
+            }
+        });
+
+        jPlaatsField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPlaatsFieldActionPerformed(evt);
+            }
+        });
+
+        jMaxCapaciteitField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMaxCapaciteitFieldActionPerformed(evt);
+            }
+        });
+
+        jLabel11.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel11.setText("Max capaciteit");
+
+        tblUitgifteLijst.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Uitgiftepunt naam", "Adres", "Plaats", "Aantal Mensen", "Max. capaciteit"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblUitgifteLijst.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblUitgifteLijstMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(tblUitgifteLijst);
+
+        javax.swing.GroupLayout jpUitgiftLayout = new javax.swing.GroupLayout(jpUitgift);
+        jpUitgift.setLayout(jpUitgiftLayout);
+        jpUitgiftLayout.setHorizontalGroup(
+            jpUitgiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpUitgiftLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jpUitgiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpUitgiftLayout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jpUitgiftLayout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 601, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jpUitgiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jpUitgiftLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jpUitgiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpUitgiftLayout.createSequentialGroup()
+                                        .addGroup(jpUitgiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jpUitgiftLayout.createSequentialGroup()
+                                                .addGap(10, 10, 10)
+                                                .addComponent(jLabel6))
+                                            .addGroup(jpUitgiftLayout.createSequentialGroup()
+                                                .addGap(40, 40, 40)
+                                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(jpUitgiftLayout.createSequentialGroup()
+                                                .addGap(40, 40, 40)
+                                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(37, 37, 37)
+                                        .addGroup(jpUitgiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jUitgifteField, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                                            .addComponent(jAdresField)
+                                            .addComponent(jPlaatsField)
+                                            .addComponent(jAantalField)
+                                            .addComponent(jMaxCapaciteitField)
+                                            .addComponent(jVolgordeLijst)))
+                                    .addComponent(btnExitUitgitfte, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addGap(0, 77, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpUitgiftLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
+                                .addGroup(jpUitgiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnUitgifteAanpassen, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnUitgifteVerwijderen, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnUitgifteToevoegen, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(120, 120, 120))))))
+        );
+        jpUitgiftLayout.setVerticalGroup(
+            jpUitgiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpUitgiftLayout.createSequentialGroup()
+                .addGap(56, 56, 56)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jpUitgiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpUitgiftLayout.createSequentialGroup()
+                        .addComponent(btnUitgifteToevoegen, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnUitgifteAanpassen, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnUitgifteVerwijderen, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(41, 41, 41)
+                        .addGroup(jpUitgiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(jUitgifteField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(12, 12, 12)
+                        .addGroup(jpUitgiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jpUitgiftLayout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addComponent(jLabel7))
+                            .addComponent(jAdresField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jpUitgiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9)
+                            .addComponent(jPlaatsField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(15, 15, 15)
+                        .addGroup(jpUitgiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(jAantalField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(15, 15, 15)
+                        .addGroup(jpUitgiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jpUitgiftLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel11))
+                            .addComponent(jMaxCapaciteitField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(15, 15, 15)
+                        .addGroup(jpUitgiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10)
+                            .addComponent(jVolgordeLijst, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(57, 57, 57)
+                        .addComponent(btnExitUitgitfte)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpUitgiftLayout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 563, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
+        );
+
+        jtpGeheel.addTab("Uitgiftepunten", jpUitgift);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -319,7 +741,7 @@ public class Main extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jtpGeheel)
+            .addComponent(jtpGeheel, javax.swing.GroupLayout.PREFERRED_SIZE, 605, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -345,17 +767,9 @@ public class Main extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnImportExcelActionPerformed
 
-    private void btnExitMainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitMainActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_btnExitMainActionPerformed
-
     private void btnExitIntakeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitIntakeActionPerformed
         System.exit(0);
     }//GEN-LAST:event_btnExitIntakeActionPerformed
-
-    private void btnExitUitgitfteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitUitgitfteActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_btnExitUitgitfteActionPerformed
 
     private void btnExitClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitClientActionPerformed
         System.exit(0);
@@ -373,6 +787,266 @@ public class Main extends javax.swing.JFrame {
         PDFmaker pdf = new PDFmaker();
         JOptionPane.showMessageDialog(null, "PDF gegenereerd. Kijk in uw map Documenten om hem te zien");
     }//GEN-LAST:event_btnPDFmakerActionPerformed
+
+    private void btnProdVerplaatsenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdVerplaatsenActionPerformed
+        try {
+            SQLproductielijst.SorterenProdlijst();
+        } catch (SQLException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (BadLocationException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnProdVerplaatsenActionPerformed
+
+    private void jtxtProdVolgordeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtProdVolgordeKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            try {
+                SQLproductielijst.SorterenProdlijst();
+            } catch (SQLException ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (BadLocationException ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jtxtProdVolgordeKeyPressed
+
+    private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
+        int answer = JOptionPane.showConfirmDialog(null, "Wilt u uitloggen?", "Confirm",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+        if (answer == JOptionPane.NO_OPTION) {
+            this.setVisible(true);
+        } else {
+            LoginScherm login = new LoginScherm();
+            this.setVisible(false);
+            login.setVisible(true);
+            this.dispose();
+
+        }
+    }
+
+    public void werktData(String User) {
+
+        btnMessage.setText("Gebruikersnaam: \t " + User);
+    }
+
+    public void maakJezelfWeerZichtbaar() {
+        this.setVisible(true);
+    }//GEN-LAST:event_btnLogOutActionPerformed
+
+    private void btnExitMainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitMainActionPerformed
+        int answer = JOptionPane.showConfirmDialog(null, "Wilt u afsluiten?", "Confirm",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+        if (answer == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
+    }//GEN-LAST:event_btnExitMainActionPerformed
+
+    private void jMaxCapaciteitFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMaxCapaciteitFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMaxCapaciteitFieldActionPerformed
+
+    private void jPlaatsFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPlaatsFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPlaatsFieldActionPerformed
+
+    private void jAantalFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAantalFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jAantalFieldActionPerformed
+
+    private void jAdresFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAdresFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jAdresFieldActionPerformed
+
+    private void jUitgifteFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jUitgifteFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jUitgifteFieldActionPerformed
+
+    private void btnUitgifteVerwijderenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUitgifteVerwijderenActionPerformed
+
+        DefaultTableModel model = (DefaultTableModel) tblUitgifteLijst.getModel();
+        int SelectedRowIndex = tblUitgifteLijst.getSelectedRow();
+
+        int antwoord = JOptionPane.showConfirmDialog(null, "U heeft " + SelectedRowIndex + " geselecteerd. Is dat correct?", "Selectie van een uitgiftenaam", JOptionPane.YES_NO_OPTION);
+
+        try {
+
+            String query = "DELETE FROM uitgiftepunt WHERE uitgifteNaam =?";
+            statement = conn.prepareStatement(query);
+            statement.setString(1, jUitgifteField.getText());
+            statement.execute();
+            System.out.println("Deleted");
+            model.removeRow(SelectedRowIndex);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "U heeft niks geselecteerd");
+
+        } finally {
+            try {
+                rs.close();
+                statement.close();
+
+            } catch (Exception e) {
+            }
+
+        }
+    }//GEN-LAST:event_btnUitgifteVerwijderenActionPerformed
+
+    private void btnUitgifteAanpassenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUitgifteAanpassenActionPerformed
+        DefaultTableModel model = (DefaultTableModel) tblUitgifteLijst.getModel();
+        int selectedRowIndex = tblUitgifteLijst.getSelectedRow();
+
+        String naam = jUitgifteField.getText();
+        String adres = jAdresField.getText();
+        String plaats = jPlaatsField.getText();
+        String aantal = jAantalField.getText();
+        String max_cap = jMaxCapaciteitField.getText();
+        String volgorde = jVolgordeLijst.getText();
+        String a = volgorde;
+        jVolgordeLijst.getText();
+
+        //               String NewNames= JOptionPane.showInputDialog(null, "Naam", naam);
+        //        String NewAdres = JOptionPane.showInputDialog(null, "Adres", adres);
+        //        String NewPlaats = JOptionPane.showInputDialog(null, "Plaats ", plaats);
+        //        String NewAantal = JOptionPane.showInputDialog(null, "Aantal ", aantal);
+        //        String NewMax_Cap = JOptionPane.showInputDialog(null, "Maximaal Capaciteit ", max_cap);
+        //        String newVolgorde = JOptionPane.showInputDialog(null, "Volgordelijst ", volgorde);
+        //
+        model.setValueAt(naam, selectedRowIndex, 0);
+        model.setValueAt(adres, selectedRowIndex, 1);
+        model.setValueAt(plaats, selectedRowIndex, 2);
+        model.setValueAt(aantal, selectedRowIndex, 3);
+        model.setValueAt(max_cap, selectedRowIndex, 4);
+        model.setValueAt(volgorde, selectedRowIndex, 5);
+        try {
+            String query2;
+            String query = "UPDATE uitgiftepunt SET uitgifteNaam = ?, adres=?,plaats =?, aantalMensen= ?, maxCapaciteit= ?, volgordeLijst= ? WHERE  uitgifteNaam= ?";
+            statement = conn.prepareStatement(query);
+
+            statement.setString(1, naam);
+            statement.setString(2, adres);
+            statement.setString(3, plaats);
+            statement.setString(4, aantal);
+            statement.setString(5, max_cap);
+            statement.setString(6, volgorde);
+            statement.setString(7, naam);
+
+            statement.executeUpdate();
+
+            //sql.WeergevenGegevensUitgifte();
+            JOptionPane.showMessageDialog(null, "Updated");
+            System.out.println("Updated");
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        } finally {
+            try {
+                rs.close();
+                statement.close();
+                // conn.close();
+            } catch (Exception e) {
+            }
+        }
+    }//GEN-LAST:event_btnUitgifteAanpassenActionPerformed
+
+    private void btnUitgifteToevoegenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUitgifteToevoegenActionPerformed
+        String query = "INSERT INTO uitgiftepunt VALUES(?,?,?,?,?,?)";
+        try {
+
+            statement = conn.prepareStatement(query);
+
+            statement.setString(1, jUitgifteField.getText());
+            statement.setString(2, jAdresField.getText());
+            statement.setString(3, jPlaatsField.getText());
+            statement.setString(4, jAantalField.getText());
+            statement.setString(5, jMaxCapaciteitField.getText());
+            statement.setString(6, jVolgordeLijst.getText());
+
+            String naam = jUitgifteField.getText();
+            String adres = jAdresField.getText();
+            String plaats = jPlaatsField.getText();
+            int aantal = Integer.parseInt(jAantalField.getText());
+            int Max_cap = Integer.parseInt(jMaxCapaciteitField.getText());
+            int volgorde = Integer.parseInt(jVolgordeLijst.getText());
+
+            Object rowData[] = new Object[6];
+            rowData[0] = naam;
+            rowData[1] = adres;
+            rowData[2] = plaats;
+            rowData[3] = aantal;
+            rowData[4] = Max_cap;
+            rowData[5] = volgorde;
+
+            DefaultTableModel model = (DefaultTableModel) tblUitgifteLijst.getModel();
+
+            statement.executeUpdate();
+            System.out.println("gegevens zijn toegevoegd");
+            JOptionPane.showMessageDialog(null, "Gegevens zijn opgeslagen");
+            model.addRow(rowData);
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "U heeft niks toegevoegd");
+
+        }
+    }//GEN-LAST:event_btnUitgifteToevoegenActionPerformed
+
+    private void btnExitUitgitfteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitUitgitfteActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_btnExitUitgitfteActionPerformed
+
+    private void tblUitgifteLijstMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblUitgifteLijstMouseClicked
+        DefaultTableModel model = (DefaultTableModel) tblUitgifteLijst.getModel();
+        int selectedRowIndex = tblUitgifteLijst.getSelectedRow();
+        //
+        String naam = jUitgifteField.getText();
+        String adres = jAdresField.getText();
+        String plaats = jPlaatsField.getText();
+        String aantal = jAantalField.getText();
+        String Max_cap = jMaxCapaciteitField.getText();
+        String volgorde = jVolgordeLijst.getText();
+        try{
+        jUitgifteField.setText(model.getValueAt(tblUitgifteLijst.getSelectedRow(), 0).toString());
+        jAdresField.setText(model.getValueAt(tblUitgifteLijst.getSelectedRow(), 1).toString());
+        jPlaatsField.setText(model.getValueAt(tblUitgifteLijst.getSelectedRow(), 2).toString());
+        jAantalField.setText(model.getValueAt(tblUitgifteLijst.getSelectedRow(), 3).toString());
+        jMaxCapaciteitField.setText(model.getValueAt(tblUitgifteLijst.getSelectedRow(), 4).toString());
+        jVolgordeLijst.setText(model.getValueAt(tblUitgifteLijst.getSelectedRow(), 5).toString());
+        }catch(Exception e){
+        
+        }
+
+        //
+        //\        String NewNames= JOptionPane.showInputDialog(null, "Naam", naam);
+        //        String NewAdres = JOptionPane.showInputDialog(null, "Adres", adres);
+        //        String NewPlaats = JOptionPane.showInputDialog(null, "Plaats ", plaats);
+        //        String NewAantal = JOptionPane.showInputDialog(null, "Aantal ", aantal);
+        //        String NewMax_Cap = JOptionPane.showInputDialog(null, "Maximaal Capaciteit ", Max_cap);
+        //        String newVolgorde = JOptionPane.showInputDialog(null, "Volgordelijst ", volgorde);
+        //
+        //        //model.setValueAt(NewNaam, selectedRowIndex, 0);
+        //        model.setValueAt(NewAdres, selectedRowIndex, 1);
+        //        model.setValueAt(NewPlaats, selectedRowIndex, 2);
+        //        model.setValueAt(NewAantal, selectedRowIndex, 3);
+        //        model.setValueAt(NewMax_Cap, selectedRowIndex, 4);
+        //        model.setValueAt(newVolgorde, selectedRowIndex, 5);
+    }//GEN-LAST:event_tblUitgifteLijstMouseClicked
+
+    private void jVolgordeLijstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jVolgordeLijstActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jVolgordeLijstActionPerformed
+
+    private void GegevensNaarDatabase() throws SQLException, IOException {
+        PreparedStatement pst = null;
+        String query = "INSERT INTO `16102150`.client";
+        Connection conn = data.getConnection();
+        pst = conn.prepareStatement(query);
+        ResultSet result = pst.executeQuery(query);
+    }
 
     /**
      * @param args the command line arguments
@@ -404,7 +1078,19 @@ public class Main extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Main().setVisible(true);
+                try {
+                    new Main().setVisible(true);
+                    SQLuitgiftepunt.WeergevenGegevensUitgifte();
+                    SQLclientOverzicht.WeergevenGegevensClient();
+                    SQLmanagement.WeergevenGegevensManage();
+                    SQLproductielijst.WeergevenGegevensProd();
+                    SQLproductielijst.OphalenLocatie();
+                    SQLproductielijst.OphalenUitgitenaam();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -417,10 +1103,39 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton btnExitManage;
     private javax.swing.JButton btnExitUitgitfte;
     private javax.swing.JButton btnImportExcel;
+    private javax.swing.JButton btnLogOut;
+    private javax.swing.JLabel btnMessage;
+    private javax.swing.JLabel btnMessage2;
     private javax.swing.JButton btnPDFmaker;
+    private javax.swing.JButton btnProdVerplaatsen;
+    public javax.swing.JButton btnUitgifteAanpassen;
+    private javax.swing.JButton btnUitgifteToevoegen;
+    private javax.swing.JButton btnUitgifteVerwijderen;
     private javax.swing.JButton btnZoekExcel;
+    private javax.swing.JTextField jAantalField;
+    private javax.swing.JTextField jAdresField;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jDatum;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JTextField jMaxCapaciteitField;
+    private javax.swing.JTextField jPlaatsField;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JLabel jTime;
+    private javax.swing.JTextField jUitgifteField;
+    private javax.swing.JTextField jVolgordeLijst;
+    public static javax.swing.JLabel jlblProdNaam;
     private javax.swing.JPanel jpClient;
     private javax.swing.JPanel jpIntake;
     private javax.swing.JPanel jpMain;
@@ -428,8 +1143,12 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel jpProductie;
     private javax.swing.JPanel jpUitgift;
     private javax.swing.JTabbedPane jtpGeheel;
+    public static javax.swing.JTextField jtxtProdVolgorde;
     private javax.swing.JLabel lblMessage;
     private javax.swing.JLabel lblPath;
-    private javax.swing.JTable tblUitgiftepunt;
+    public static javax.swing.JTable tblClientGegevens;
+    public static javax.swing.JTable tblManageInfo;
+    public static javax.swing.JTable tblProdLijst;
+    public static javax.swing.JTable tblUitgifteLijst;
     // End of variables declaration//GEN-END:variables
 }
