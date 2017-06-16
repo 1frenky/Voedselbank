@@ -111,6 +111,7 @@ public class Main extends javax.swing.JFrame {
         jtxtProdVolgorde = new javax.swing.JTextField();
         jlblProdNaam = new javax.swing.JLabel();
         btnMessage2 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
         jpIntake = new javax.swing.JPanel();
         btnImportExcel = new javax.swing.JButton();
         btnZoekExcel = new javax.swing.JButton();
@@ -281,6 +282,13 @@ public class Main extends javax.swing.JFrame {
 
         btnMessage2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
+        jButton2.setText("Genereer PDF");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jpProductieLayout = new javax.swing.GroupLayout(jpProductie);
         jpProductie.setLayout(jpProductieLayout);
         jpProductieLayout.setHorizontalGroup(
@@ -296,8 +304,8 @@ public class Main extends javax.swing.JFrame {
                     .addGroup(jpProductieLayout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 714, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jpProductieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jpProductieLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpProductieLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnPDFmaker)
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton1)
@@ -307,7 +315,10 @@ public class Main extends javax.swing.JFrame {
                                 .addGroup(jpProductieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(jlblProdNaam, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jtxtProdVolgorde)
-                                    .addComponent(btnProdVerplaatsen, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(btnProdVerplaatsen, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jpProductieLayout.createSequentialGroup()
+                                        .addComponent(jButton2)
+                                        .addGap(34, 34, 34)))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
         );
         jpProductieLayout.setVerticalGroup(
@@ -316,23 +327,23 @@ public class Main extends javax.swing.JFrame {
                 .addGap(83, 83, 83)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jpProductieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpProductieLayout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(395, 395, 395)
-                        .addGroup(jpProductieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
-                            .addComponent(btnPDFmaker))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnMessage2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(21, 21, 21))
+                .addGroup(jpProductieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jpProductieLayout.createSequentialGroup()
                         .addComponent(jlblProdNaam)
                         .addGap(29, 29, 29)
                         .addComponent(jtxtProdVolgorde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnProdVerplaatsen, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(211, 211, 211)
+                        .addComponent(jButton2))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(395, 395, 395)
+                .addGroup(jpProductieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(btnPDFmaker))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnMessage2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
         );
 
         jtpGeheel.addTab("Productielijst", jpProductie);
@@ -405,13 +416,13 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblPath, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(505, Short.MAX_VALUE))
             .addGroup(jpIntakeLayout.createSequentialGroup()
                 .addGap(107, 107, 107)
                 .addComponent(btnZoekExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnImportExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 174, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnExitIntake)
                 .addGap(151, 151, 151))
         );
@@ -1040,6 +1051,11 @@ public class Main extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jVolgordeLijstActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+       PDFmaker pdf = new PDFmaker();
+        JOptionPane.showMessageDialog(null, "PDF gegenereerd. Kijk in uw map Documenten om hem te zien");
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     private void GegevensNaarDatabase() throws SQLException, IOException {
         PreparedStatement pst = null;
         String query = "INSERT INTO `16102150`.client";
@@ -1115,6 +1131,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JTextField jAantalField;
     private javax.swing.JTextField jAdresField;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jDatum;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

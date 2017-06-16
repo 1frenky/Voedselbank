@@ -17,7 +17,8 @@ public class SQLuitgiftepunt extends Database.Database{
     
     public static void WeergevenGegevensUitgifte() throws SQLException, IOException {
         PreparedStatement pst = null;
-        String query = "SELECT * FROM `16102150`.uitgiftepunt";
+        String query = "SELECT UitgifteNaam, adres, plaats, aantalMensen, maxCapaciteit, volgordeLijst "
+                + "FROM `16102150`.uitgiftepunt GROUP BY uitgifteNaam ORDER BY volgordeLijst";
         Connection conn = Database.Database.getConnection();
         pst = conn.prepareStatement(query);
         ResultSet result = pst.executeQuery(query);
